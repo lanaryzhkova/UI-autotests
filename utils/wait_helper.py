@@ -17,6 +17,12 @@ class WaitHelper:
         """Ожидает, пока все элементы по локатору станут видимыми"""
         return self.wait.until(EC.visibility_of_all_elements_located(locator),
                                message=f"Элементы с локатором {locator} не видны")
+    
+    def wait_for_element_invisible(self, locator):
+        """Ожидает, пока элемент исчезнет"""
+        return self.wait.until(
+            EC.invisibility_of_element_located(locator)
+        )
 
     def wait_for_element_clickable(self, locator):
         """Ожидает, пока элемент станет кликабельным"""
@@ -27,6 +33,11 @@ class WaitHelper:
         """Ожидает, пока элемент появится в DOM"""
         return self.wait.until(EC.presence_of_element_located(locator),
                                message=f"Элемент с локатором {locator} не найден")
+    
+    def wait_for_all_elements_present(self, locator):
+        """Ожидает, пока элемент появится в DOM"""
+        return self.wait.until(EC.presence_of_all_elements_located(locator),
+                               message=f"Элементы с локатором {locator} не найден")
 
     def wait_for_url(self, url: str):
         """Ожидает, пока текущий URL страницы станет равен указанному"""
@@ -34,3 +45,7 @@ class WaitHelper:
             EC.url_to_be(url),
             message=f"Ожидался URL {url}, но получен {self.driver.current_url}"
         )
+    
+    def wait_for_alert(self):
+        """Ожидает, пока появится алерт на странице"""
+        return self.wait.until(EC.alert_is_present(), message="Ожидался алерт, но он не появился")
