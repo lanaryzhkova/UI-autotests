@@ -30,7 +30,7 @@ class TestAccountPage:
             "При невалидном значении транзакция проходит успешно"
         )
 
-        account_page.load(driver)
+        account_page.load()
         account_page.go_to_transactions()
 
         assert not account_page.is_transaction_with_null_amount(), (
@@ -70,7 +70,7 @@ class TestAccountPage:
 
         account_page.go_to_transactions()
         trans_bal = account_page.get_balance_from_transactions()
-        account_page.load(driver)
+        account_page.load()
         acc_bal = account_page.get_balance()
         assert trans_bal == acc_bal, (
             f"Баланс по транзакицям: {trans_bal}, баланс на аккаунте: {acc_bal}"
