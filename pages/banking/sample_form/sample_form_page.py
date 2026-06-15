@@ -1,19 +1,20 @@
 from pages.base_page import BasePage
 from .sample_form_locators import SampleFormLocators
-from data.data import PageUrls  
-from selenium.webdriver.support.select import Select 
+from data.data import PageUrls
+from selenium.webdriver.support.select import Select
 from utils.utils import get_longest_word_from_elements
 
 
 class SampleFormPage(BasePage):
     """Страница Sample Form"""
+
     def load(self):
         """Загрузить страницу"""
         self.open(PageUrls.SAMPLE_FORM_URL)
         self.wait.wait_for_url(PageUrls.SAMPLE_FORM_URL)
         return self
-    
-    def register(self, user: dict) -> 'SampleFormPage':
+
+    def register(self, user: dict) -> "SampleFormPage":
         """Зарегистрироваться"""
         user["about"] = self.calc_text_for_about()
 

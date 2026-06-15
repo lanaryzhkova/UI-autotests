@@ -1,12 +1,11 @@
 from pages.base_page import BasePage
-from selenium.webdriver.common.by import By
 from data.data import PageUrls
 from .home_locators import HomePageLocators
-from pages.shared.header_contacts_section import HeaderContactsSection
 
 
 class HomePage(BasePage):
     """Главная страница"""
+
     def load(self):
         """Загрузить страницу"""
         self.open(PageUrls.BASE_URL)
@@ -19,13 +18,13 @@ class HomePage(BasePage):
         navigation_list = self.find_element(HomePageLocators.HEADER_NAVIGATION_LIST)
         links = navigation_list.find_elements(*HomePageLocators.MENU_LINK)
         return links
-    
+
     def get_header_navigation_submenu_links(self) -> list:
         """Получить ссылки из подменю навигации"""
         submenu = self.find_element(HomePageLocators.HEADER_NAVIGATION_SUBMENU)
         links = submenu.find_elements(*HomePageLocators.MENU_LINK)
         return links
-    
+
     def assert_is_header_elements_visible(self) -> bool:
         """Проверить видимость элементов шапки"""
         elements = {
@@ -34,18 +33,17 @@ class HomePage(BasePage):
             "Список курсов": HomePageLocators.COURSE_SLIDER,
             "Футер": HomePageLocators.FOOTER_SECTION,
         }
-        
+
         for element_name, locator in elements.items():
             assert self.is_visible(locator), f"{element_name} отсутствует"
 
         return True
-    
+
     def is_header_navigation_visible(self) -> bool:
         """Проверить видимость навигации в хедере"""
         return self.is_visible(HomePageLocators.HEADER_NAVIGATION_SECTION)
-    
 
-    def hover_over_menu_item(self, text: str) -> 'HomePage':
+    def hover_over_menu_item(self, text: str) -> "HomePage":
         """Навести курсор на элемент меню по тексту"""
         nav_links = self.get_header_navigation_links()
         link = next((link for link in nav_links if link.text.strip() == text), None)
@@ -53,7 +51,7 @@ class HomePage(BasePage):
         self.hover_over_element(link)
         return self
 
-    def click_submenu_item(self, text: str) -> 'HomePage':
+    def click_submenu_item(self, text: str) -> "HomePage":
         """Кликнуть на элемент подменю по тексту"""
         submenu_links = self.get_header_navigation_submenu_links()
         link = next((link for link in submenu_links if link.text.strip() == text), None)

@@ -1,4 +1,4 @@
-from selenium.common import NoSuchElementException, TimeoutException
+from selenium.common import NoSuchElementException, TimeoutException, WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.alert import Alert
@@ -9,13 +9,14 @@ from data.data import PageUrls
 
 class BasePage:
     """Базовый класс"""
+
     def __init__(self, driver):
         """Инициализация базового класса"""
         self.driver = driver
         self.base_url = PageUrls.BASE_URL
         self.wait = WaitHelper(driver, 10)
 
-    def open(self, url: str) -> 'BasePage':
+    def open(self, url: str) -> "BasePage":
         """Открывает страницу по ссылке"""
         self.driver.get(url or self.base_url)
         return self
@@ -27,23 +28,22 @@ class BasePage:
     def find_elements(self, locator: tuple) -> list[WebElement]:
         """Поиск элементов по локатору"""
         return self.wait.wait_for_all_elements_visible(locator)
-    
+
     def find_elements_safe(self, locator):
         """Поиск элементов по локатору без ожидания"""
         try:
             return self.driver.find_elements(*locator)
-        except:
+        except WebDriverException:
             return []
 
-    def scroll_to(self, elem) -> 'BasePage':
+    def scroll_to(self, elem) -> "BasePage":
         """Прокрутка до элемента"""
         self.driver.execute_script(
-            "arguments[0].scrollIntoView({block: 'start'});",
-            elem
+            "arguments[0].scrollIntoView({block: 'start'});", elem
         )
         return self
 
-    def click(self, element: WebElement) -> 'BasePage':
+    def click(self, element: WebElement) -> "BasePage":
         """Метод нажатия на элемент"""
         elem = element
         self.scroll_to(elem)
@@ -70,12 +70,12 @@ class BasePage:
             return False
         except NoSuchElementException:
             return False
-        
-    def hover_over_element(self, element: WebElement) -> 'BasePage':
+
+    def hover_over_element(self, element: WebElement) -> "BasePage":
         """Метод наведения курсора на элемент"""
         ActionChains(self.driver).move_to_element(element).perform()
         return self
-    
+
     def alert_is_present(self) -> bool:
         """Метод проверки наличия алерта"""
         try:
@@ -83,18 +83,18 @@ class BasePage:
             return True
         except TimeoutException:
             return False
-        
+
     def accept_alert(self):
         try:
             self.wait.wait_for_alert()
             alert = Alert(self.driver)
             alert.accept()
         except TimeoutException:
-            return False 
+            return False
 
-    def get_attribute_of_element(self,
-                                 element: WebElement,
-                                 attribute: str) -> str | int | float | None:
+    def get_attribute_of_element(
+        self, element: WebElement, attribute: str
+    ) -> str | int | float | None:
         """Метод получения атрибута элемента"""
         return element.get_attribute(attribute)
 

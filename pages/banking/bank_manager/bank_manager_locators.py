@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 
 class BankManagerPageLocators:
     """Локаторы для Bank Manager Login"""
+
     ADD_CUSTOMER_BUTTON = (By.XPATH, "//*[contains(text(), 'Add Customer')]")
     OPEN_ACCOUNT_BUTTON = (By.XPATH, "//*[contains(text(), 'Open Account')]")
     CUSTOMERS_BUTTON = (By.XPATH, "//*[contains(text(), 'Customers')]")

@@ -5,7 +5,8 @@ from data.data import PageUrls
 
 class LifetimeMembershipClubPage(BasePage):
     """Страница Lifetime Membership Club"""
-    HEADER_TEXT = (By.TAG_NAME, 'h1')
+
+    HEADER_TEXT = (By.TAG_NAME, "h1")
 
     def load(self):
         """Загрузить страницу"""
