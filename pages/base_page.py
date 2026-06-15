@@ -1,10 +1,11 @@
-from selenium.common import NoSuchElementException, TimeoutException, WebDriverException
+from selenium.common import (NoSuchElementException, TimeoutException,
+                             WebDriverException)
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.remote.webelement import WebElement
 
-from utils.wait_helper import WaitHelper
 from data.data import PageUrls
+from utils.wait_helper import WaitHelper
 
 
 class BasePage:

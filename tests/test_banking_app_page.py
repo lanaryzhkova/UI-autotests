@@ -1,8 +1,9 @@
-from pages.banking.banking_app.banking_app_page import BankingAppPage
+from data.data import PageUrls, customer
+from data.data import sample_form_user as user
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
-from pages.banking.sample_form.sample_form_page import SampleFormPage
+from pages.banking.banking_app.banking_app_page import BankingAppPage
 from pages.banking.customer_page import CustomerPage
-from data.data import sample_form_user as user, customer, PageUrls
+from pages.banking.sample_form.sample_form_page import SampleFormPage
 
 
 class TestBankingAppPage:

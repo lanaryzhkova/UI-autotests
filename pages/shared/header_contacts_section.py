@@ -1,6 +1,7 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+
 from data.data import expected_contact_links, expected_social_links
+from pages.base_page import BasePage
 
 
 class HeaderContactsSection(BasePage):

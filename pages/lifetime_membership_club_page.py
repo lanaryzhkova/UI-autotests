@@ -1,6 +1,7 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
+
 from data.data import PageUrls
+from pages.base_page import BasePage
 
 
 class LifetimeMembershipClubPage(BasePage):

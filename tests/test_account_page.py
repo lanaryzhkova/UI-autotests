@@ -1,6 +1,6 @@
 from pages.banking.account.account_page import AccountPage
-from pages.banking.banking_app.banking_app_page import BankingAppPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
+from pages.banking.banking_app.banking_app_page import BankingAppPage
 
 
 class TestAccountPage:
@@ -12,7 +12,7 @@ class TestAccountPage:
 
         account_page.deposit_succesfully("100321")
 
-        account_page.load(driver)
+        account_page.load()
         account_page.go_to_transactions()
 
         assert str(account_page.get_last_transaction_amount()) == "100321", (

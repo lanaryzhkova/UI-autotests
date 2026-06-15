@@ -1,8 +1,10 @@
-from pages.base_page import BasePage
-from data.data import PageUrls
-from .bank_manager_locators import BankManagerPageLocators
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.select import Select
+
+from data.data import PageUrls
+from pages.base_page import BasePage
+
+from .bank_manager_locators import BankManagerPageLocators
 
 
 class BankManagerLoginPage(BasePage):

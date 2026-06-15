@@ -1,10 +1,10 @@
 import pytest
 
+from data.data import PageUrls, customer
 from pages.banking.account.account_page import AccountPage
-from pages.banking.banking_app.banking_app_page import BankingAppPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
+from pages.banking.banking_app.banking_app_page import BankingAppPage
 from pages.banking.customer_page import CustomerPage
-from data.data import customer, PageUrls
 
 
 @pytest.fixture

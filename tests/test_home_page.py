@@ -1,8 +1,8 @@
-from pages.home.home_page import HomePage
-from pages.shared.header_contacts_section import HeaderContactsSection
-from pages.shared.footer_section import FooterSection
-from pages.lifetime_membership_club_page import LifetimeMembershipClubPage
 from data.data import PageUrls
+from pages.home.home_page import HomePage
+from pages.lifetime_membership_club_page import LifetimeMembershipClubPage
+from pages.shared.footer_section import FooterSection
+from pages.shared.header_contacts_section import HeaderContactsSection
 
 
 class TestHomePage:

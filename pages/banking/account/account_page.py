@@ -1,13 +1,16 @@
-from pages.base_page import BasePage
-from data.data import PageUrls
-from .account_page_locators import AccountPageLocators
 import random
 import time
+
 from selenium.webdriver.remote.webelement import WebElement
+
+from data.data import PageUrls
+from pages.base_page import BasePage
+
+from .account_page_locators import AccountPageLocators
 
 
 class AccountPage(BasePage):
-    def load(self, driver):
+    def load(self):
         """Загрузить страницу"""
         self.open(PageUrls.CUSTOMER_ACCOUNT_URL)
         self.wait.wait_for_url(PageUrls.CUSTOMER_ACCOUNT_URL)

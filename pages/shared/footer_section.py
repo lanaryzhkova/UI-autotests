@@ -1,7 +1,8 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
-from data.data import expected_about_us_info
 from selenium.webdriver.remote.webelement import WebElement
+
+from data.data import expected_about_us_info
+from pages.base_page import BasePage
 
 
 class FooterSection(BasePage):

@@ -1,6 +1,6 @@
+from data.data import PageUrls, not_valid_user, valid_user
 from pages.auth.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
-from data.data import PageUrls, valid_user, not_valid_user
 
 
 class TestLoginPage:

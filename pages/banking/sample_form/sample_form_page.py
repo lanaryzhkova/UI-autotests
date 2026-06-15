@@ -1,8 +1,10 @@
-from pages.base_page import BasePage
-from .sample_form_locators import SampleFormLocators
-from data.data import PageUrls
 from selenium.webdriver.support.select import Select
+
+from data.data import PageUrls
+from pages.base_page import BasePage
 from utils.utils import get_longest_word_from_elements
+
+from .sample_form_locators import SampleFormLocators
 
 
 class SampleFormPage(BasePage):

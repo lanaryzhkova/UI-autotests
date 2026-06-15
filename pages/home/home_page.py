@@ -1,5 +1,6 @@
-from pages.base_page import BasePage
 from data.data import PageUrls
+from pages.base_page import BasePage
+
 from .home_locators import HomePageLocators
 
 

@@ -1,7 +1,8 @@
-from pages.base_page import BasePage
-from data.data import PageUrls
-from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
+
+from data.data import PageUrls
+from pages.base_page import BasePage
 
 
 class CustomerPage(BasePage):

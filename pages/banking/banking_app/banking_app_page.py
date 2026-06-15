@@ -1,5 +1,6 @@
 from data.data import PageUrls
 from pages.base_page import BasePage
+
 from .banking_app_locators import BankingAppPageLocators
 
 
