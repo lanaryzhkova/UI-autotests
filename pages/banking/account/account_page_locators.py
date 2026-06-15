@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 
 class AccountPageLocators:
@@ -21,13 +22,13 @@ class AccountPageLocators:
     BACK_TRANSACTION_BUTTON = (By.CSS_SELECTOR, '[ng-click="back()"]')
 
     @staticmethod
-    def get_transaction_amount_cell(row_element):
+    def get_transaction_amount_cell(row_element: WebElement) -> str:
         """Получить ячейку с суммой из строки таблицы"""
         cells = row_element.find_elements(*AccountPageLocators.TRANSACTIONS_CELLS)
         return cells[1].text if len(cells) > 1 else ""
     
     @staticmethod
-    def get_transaction_operation_cell(row_element):
+    def get_transaction_operation_cell(row_element: WebElement) -> str:
         """Получить ячейку с типом операции из строки таблицы"""
         cells = row_element.find_elements(*AccountPageLocators.TRANSACTIONS_CELLS)
         return cells[2].text if len(cells) > 2 else ""

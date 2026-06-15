@@ -13,7 +13,7 @@ class LifetimeMembershipClubPage(BasePage):
         self.wait.wait_for_url(PageUrls.LIFETIME_MEMBERSHIP_URL)
         return self
 
-    def get_header_text(self):
+    def get_header_text(self) -> str:
         """Получить текст заголовка страницы"""
         header_element = self.find_element(self.HEADER_TEXT)
         return header_element.text.strip().lower()

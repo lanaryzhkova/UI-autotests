@@ -15,6 +15,6 @@ class SampleFormLocators:
     GENDER_OPTION = (By.TAG_NAME, 'option')
 
     @staticmethod
-    def hobby_checkbox(hobby_value: str):
+    def hobby_checkbox(hobby_value: str) -> tuple:
         """Локатор для конкретного хобби"""
         return (By.XPATH, f"//input[@name='hobbies'][@value='{hobby_value}']")

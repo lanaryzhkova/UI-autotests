@@ -9,17 +9,17 @@ class HeaderContactsSection(BasePage):
     contact_links = (By.CSS_SELECTOR, '[data-section="section-hb-html-1"] a')
     social_links = (By.CSS_SELECTOR, '[data-section="section-hb-social-icons-1"] a')
 
-    def get_contact_links(self):
+    def get_contact_links(self) -> list:
         """Получить ссылки на контакты"""
         contact_links = self.find_elements(self.contact_links)
         return [link.get_attribute('href') for link in contact_links]
     
-    def get_social_links(self):
+    def get_social_links(self) -> list:
         """Получить ссылки на соцсети"""
         social_links = self.find_elements(self.social_links)
         return [link.get_attribute('href') for link in social_links]
 
-    def is_header_contacts_visible(self):
+    def is_header_contacts_visible(self) -> bool:
         """Проверка отображения контактов"""
         return self.is_visible(self.header_contacts_element)
     

@@ -18,7 +18,7 @@ class LoginPage(BasePage):
         self.wait.wait_for_url(PageUrls.LOGIN_URL)
         return self
     
-    def login(self, username: str, password: str, description: str):
+    def login(self, username: str, password: str, description: str) -> 'LoginPage':
         """Вход в систему"""
         self.send_keys_to_input(self.USERNAME_INPUT, username)
         self.send_keys_to_input(self.PASSWORD_INPUT, password)
@@ -26,11 +26,11 @@ class LoginPage(BasePage):
         self.click(self.find_element(self.LOGIN_BUTTON))
         return self
     
-    def is_error_message_displayed(self):
+    def is_error_message_displayed(self) -> bool:
         """Отображение сообщения об ошибке"""
         return self.is_visible(self.ERROR_ELEMENT)
 
-    def assert_is_login_elements_visible(self):
+    def assert_is_login_elements_visible(self) -> bool:
         """Проверить видимость элементов формы логина"""
         elements = {
             "Поле Имя пользователя": self.USERNAME_INPUT,

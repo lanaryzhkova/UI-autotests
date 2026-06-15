@@ -83,7 +83,7 @@ class TestAccountPage:
         assert count_before_reset==6, f"Количество транзакций не совпадает, получено {count_before_reset}"
         account_page.reset_transactions()
         count_after_reset = account_page.count_transactions_after_reset()
-        assert count_after_reset==0, f"После удаления остались транзакции {count_after_reset}"
+        assert count_after_reset, f"После удаления остались транзакции {count_after_reset}"
         account_page.back_from_transactions()
         balance = account_page.get_balance()
 

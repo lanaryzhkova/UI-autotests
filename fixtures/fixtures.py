@@ -2,16 +2,16 @@ import pytest
 
 from pages.banking.account.account_page import AccountPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
-from pages.banking.banking_manager.bank_manager_login import BankingManagerLoginPage
+from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.customer_page import CustomerPage
 from data.data import customer, PageUrls
 
 
 @pytest.fixture
-def created_customer(driver):
+def created_customer(driver) -> str:
     """Кастомер добавлен в сервис"""
     banking_app_page = BankingAppPage(driver)
-    banking_manager_login_page = BankingManagerLoginPage(driver)
+    banking_manager_login_page = BankManagerLoginPage(driver)
 
     banking_app_page.load()
     banking_app_page.go_to_bank_manager_login()
@@ -29,10 +29,10 @@ def created_customer(driver):
     return f'{customer["first_name"]} {customer["last_name"]}'
 
 @pytest.fixture
-def customer_with_account(driver, created_customer):
+def customer_with_account(driver, created_customer) -> str:
     """Кастомер с открытым аккаунтом"""
     banking_app_page = BankingAppPage(driver)
-    banking_manager_login_page = BankingManagerLoginPage(driver) 
+    banking_manager_login_page = BankManagerLoginPage(driver) 
 
     banking_app_page.load() 
     banking_app_page.go_to_bank_manager_login()
@@ -46,10 +46,10 @@ def customer_with_account(driver, created_customer):
     return created_customer
 
 @pytest.fixture
-def customer_is_logged_in(driver, customer_with_account):
+def customer_is_logged_in(driver, customer_with_account) -> str:
     """Кастомер вошёл в аккаунт"""
     banking_app_page = BankingAppPage(driver)
-    banking_manager_login_page = BankingManagerLoginPage(driver) 
+    banking_manager_login_page = BankManagerLoginPage(driver) 
     customer_page = CustomerPage(driver)
 
     banking_app_page.load() 
@@ -62,7 +62,7 @@ def customer_is_logged_in(driver, customer_with_account):
     return customer_with_account
 
 @pytest.fixture
-def customer_with_balance(driver, customer_is_logged_in):
+def customer_with_balance(driver, customer_is_logged_in) -> str:
     """Кастомер с балансом 10000"""
     account_page = AccountPage(driver)
 
@@ -71,7 +71,7 @@ def customer_with_balance(driver, customer_is_logged_in):
     return customer_is_logged_in
 
 @pytest.fixture
-def customer_with_transactions(driver, customer_is_logged_in):
+def customer_with_transactions(driver, customer_is_logged_in) -> str :
     """Кастомер с историей транзакций"""
     account_page = AccountPage(driver)
 

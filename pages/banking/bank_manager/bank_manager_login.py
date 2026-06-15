@@ -2,6 +2,7 @@ from pages.base_page import BasePage
 from data.data import PageUrls
 from .bank_manager_locators import BankManagerPageLocators
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.remote.webelement import WebElement
 
 class BankManagerLoginPage(BasePage):
     """Страница Bank Manager Login"""
@@ -11,25 +12,25 @@ class BankManagerLoginPage(BasePage):
         self.wait.wait_for_url(PageUrls.BANK_MANAGER_URL)
         return self
     
-    def go_to_add_customer(self):
+    def go_to_add_customer(self) -> 'BankManagerLoginPage':
         """Перейти к Add Customer"""
         self.click(self.find_element(BankManagerPageLocators.ADD_CUSTOMER_BUTTON))
         self.wait.wait_for_url(PageUrls.ADD_CUSTOMER_URL)
         return self
     
-    def go_to_open_account(self):
+    def go_to_open_account(self) -> 'BankManagerLoginPage':
         """Перейти к Open Account"""
         self.click(self.find_element(BankManagerPageLocators.OPEN_ACCOUNT_BUTTON))
         self.wait.wait_for_url(PageUrls.OPEN_ACCOUNT_URL)
         return self
     
-    def go_to_customers(self):
+    def go_to_customers(self) -> 'BankManagerLoginPage':
         """Перейти к Customers"""
         self.click(self.find_element(BankManagerPageLocators.CUSTOMERS_BUTTON))
         self.wait.wait_for_url(PageUrls.CUSTOMERS_URL)
         return self
 
-    def add_customer(self, first_name: str, last_name: str, postcode: str):
+    def add_customer(self, first_name: str, last_name: str, postcode: str) -> 'BankManagerLoginPage':
         """Добавить кастомера"""
         self.send_keys_to_input(BankManagerPageLocators.FIRST_NAME_INPUT, first_name)
         self.send_keys_to_input(BankManagerPageLocators.LAST_NAME_INPUT, last_name)
@@ -37,7 +38,7 @@ class BankManagerLoginPage(BasePage):
         self.click(self.find_element(BankManagerPageLocators.ADD_CUSTOMER_SUBMIT_BUTTON))
         return self
     
-    def open_account(self, customer_name: str, currency_value: str):
+    def open_account(self, customer_name: str, currency_value: str) -> 'BankManagerLoginPage':
         """Открыть (создать) аккаунт с валютой"""
         customers = Select(self.find_element(BankManagerPageLocators.CUSTOMER_SELECT))
         currency = Select(self.find_element(BankManagerPageLocators.CURRENCY_SELECT))
@@ -47,16 +48,16 @@ class BankManagerLoginPage(BasePage):
         self.click(self.find_element(BankManagerPageLocators.PROCESS_BUTTON))
         return self
     
-    def search_customer(self, first_name: str, last_name: str):
+    def search_customer(self, first_name: str, last_name: str) -> WebElement | bool:
         """Найти кастомера"""
         self.send_keys_to_input(BankManagerPageLocators.SEARCH_INPUT, f"{first_name}")
         customers = self.find_elements(BankManagerPageLocators.CUSTOMER_ROW)
         for customer in customers:
             if (first_name in customer.text and last_name in customer.text):
                 return customer
-        return None
+        return False
 
-    def delete_customer(self, first_name: str, last_name):
+    def delete_customer(self, first_name: str, last_name: str) -> bool:
         """Удалить кастомера"""
         customers = self.find_elements(BankManagerPageLocators.CUSTOMER_ROW)
         for customer in customers:

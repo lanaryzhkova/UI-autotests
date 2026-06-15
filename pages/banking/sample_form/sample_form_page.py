@@ -13,7 +13,7 @@ class SampleFormPage(BasePage):
         self.wait.wait_for_url(PageUrls.SAMPLE_FORM_URL)
         return self
     
-    def register(self, user: dict):
+    def register(self, user: dict) -> 'SampleFormPage':
         """Зарегистрироваться"""
         user["about"] = self.calc_text_for_about()
 
@@ -32,12 +32,12 @@ class SampleFormPage(BasePage):
         self.click(self.find_element(SampleFormLocators.SUBMIT_BUTTON))
         return self
 
-    def calc_text_for_about(self):
+    def calc_text_for_about(self) -> str:
         """Вычислить текст для About"""
         checkboxes = self.find_elements(SampleFormLocators.HOBBIES_CHECKBOXES)
         longest_hobby = get_longest_word_from_elements(checkboxes)
         return f"Самое длинное слово из предложенных хобби - {longest_hobby}"
 
-    def is_success_message_displayed(self):
+    def is_success_message_displayed(self) -> bool:
         """Проверить отображение сообщения об успешой регистрации"""
         return self.is_visible(SampleFormLocators.SUCCESS_MESSAGE)
