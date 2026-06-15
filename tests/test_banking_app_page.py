@@ -1,13 +1,14 @@
 from pages.banking.banking_app.banking_app_page import BankingAppPage
-from pages.banking.banking_manager.banking_manager_login import BankingManagerLoginPage
+from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.sample_form.sample_form_page import SampleFormPage
 from pages.banking.customer_page import CustomerPage
 from data.data import sample_form_user as user, customer, PageUrls
 
 
 class TestBankingAppPage:
-
+    """Тесты для страницы BankingApp"""
     def test_valid_fill_sample_form(self, driver):
+        """Тестирование успешного заполнения Sample Form"""
         banking_app_page = BankingAppPage(driver)
         sample_form_page = SampleFormPage(driver)
         banking_app_page.load()
@@ -18,8 +19,9 @@ class TestBankingAppPage:
         assert sample_form_page.is_success_message_displayed(), "Сообщение об успешной отправке формы не отображается"
 
     def test_add_customer(self, driver):
+        """Тестирование добавления кастомера"""
         banking_app_page = BankingAppPage(driver)
-        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_manager_login_page = BankManagerLoginPage(driver)
         banking_app_page.load()
         banking_app_page.go_to_bank_manager_login()
         banking_manager_login_page.go_to_add_customer()
@@ -30,8 +32,9 @@ class TestBankingAppPage:
         banking_manager_login_page.accept_alert()
 
     def test_open_account(self, driver, created_customer):
+        """Тестирование открытия (создания) аккаунта"""
         banking_app_page = BankingAppPage(driver)
-        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_manager_login_page = BankManagerLoginPage(driver)
         banking_app_page.go_to_bank_manager_login()
         banking_manager_login_page.go_to_open_account()
 
@@ -41,8 +44,9 @@ class TestBankingAppPage:
         banking_manager_login_page.accept_alert()
 
     def test_customer_login(self, driver, created_customer):
+        """Тестирования входа в аккаунт кастомера"""
         banking_app_page = BankingAppPage(driver)
-        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_manager_login_page = BankManagerLoginPage(driver)
         customer_page = CustomerPage(driver)
         banking_app_page.go_to_customer_login()
 

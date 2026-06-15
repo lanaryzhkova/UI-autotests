@@ -2,10 +2,12 @@ import pytest
 
 from pages.banking.account.account_page import AccountPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
-from pages.banking.banking_manager.banking_manager_login import BankingManagerLoginPage
+from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 
 class TestAccountPage:
+    """Тесты для страницы Account"""
     def test_valid_deposit(self, driver, customer_is_logged_in):
+        """Тестирование успешного пополнения баланса"""
         account_page = AccountPage(driver)
 
         account_page.deposit_succesfully("100321")
@@ -17,6 +19,7 @@ class TestAccountPage:
 
 
     def test_not_valid_deposit(self, driver, customer_is_logged_in):
+        """Тестирование пополнения с невалидным значением (0)"""
         account_page = AccountPage(driver)
 
         account_page.go_to_deposit()
@@ -30,6 +33,7 @@ class TestAccountPage:
         assert not account_page.is_transaction_with_null_amount(), "Найдена транзакция с amount 0"
 
     def test_valid_withdrawl(self, driver, customer_with_balance):
+        """Тестирование успешного снятия средств"""
         account_page = AccountPage(driver)
         withdrawl_value = str(account_page.gen_random_withdrawl())
 
@@ -38,17 +42,19 @@ class TestAccountPage:
         account_page.go_to_transactions()
         assert account_page.get_last_transaction_amount()==withdrawl_value, f"Ожидалась транзакиця {withdrawl_value}, получена {account_page.get_last_transaction_amount()}"
 
-    def test_not_valid_withdrawl(self, driver, customer_with_balance):
+    def test_not_valid_withdrawl(self, driver, customer_is_logged_in):
+        """Тестирование снятия средств с невалидным значением (1000000 при балансе 0)"""
         account_page = AccountPage(driver)
 
         account_page.go_to_withdrawl()
-        account_page.withdrawl("100000")
+        account_page.withdrawl("1000000")
         assert account_page.is_failed_withdrawl(), "Ожидалось, что транзакция пройдет не успешно"
 
         account_page.go_to_transactions()
-        assert account_page.get_last_transaction_amount()!="100000", f"Ожидалась транзакиця {100000}, получена {account_page.get_last_transaction_amount()}"
+        assert account_page.get_last_transaction_amount()!="100000", f"Ожидалась транзакиця {1000000}, получена {account_page.get_last_transaction_amount()}"
 
     def test_check_balance(self, driver, customer_with_transactions):
+        """Тестирование соответствия: баланс аккаунта = баланс, вычисленный по транзакциям"""
         account_page = AccountPage(driver)
         
         account_page.go_to_transactions()
@@ -58,6 +64,7 @@ class TestAccountPage:
         assert trans_bal==acc_bal, f"Баланс по транзакицям: {trans_bal}, баланс на аккаунте: {acc_bal}"
 
     def test_withdrawl_all(self, driver, customer_with_balance):
+        """Тестирования снятия всех средств с баланса"""
         account_page = AccountPage(driver)
 
         account_page.go_to_withdrawl()
@@ -68,6 +75,7 @@ class TestAccountPage:
         assert account_page.get_balance()==0, "Баланс не нулевой"
 
     def test_reset_transactions(self, driver, customer_with_transactions):
+        """Тестирование сброса транзакций"""
         account_page = AccountPage(driver)
         account_page.go_to_transactions()
 
@@ -81,9 +89,10 @@ class TestAccountPage:
 
         assert balance==0,f"Balance {balance}"
 
-    def test_delete_customer(self, driver, created_customer):
+    def test_search_and_delete_customer(self, driver, created_customer):
+        """Тестирование поиска и удаления кастомера"""
         banking_app_page = BankingAppPage(driver)
-        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_manager_login_page = BankManagerLoginPage(driver)
 
         banking_app_page.go_to_bank_manager_login()
         banking_manager_login_page.go_to_customers()

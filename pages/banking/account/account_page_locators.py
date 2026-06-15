@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class AccountPageLocators:
+    """Локаторы для страницы Account"""
     DEPOSIT_TAB_BUTTON = (By.CSS_SELECTOR, '[ng-click="deposit()"]')
     TRANSACTIONS_TAB_BUTTON = (By.CSS_SELECTOR, '[ng-click="transactions()"]')
     WITHDRAWL_TAB_BUTTON = (By.CSS_SELECTOR, '[ng-click="withdrawl()"]')

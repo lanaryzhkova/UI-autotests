@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class SampleFormLocators:
-    """Локаторы"""
+    """Локаторы для Sample Form"""
     FIRST_NAME_INPUT = (By.ID, 'firstName')
     LAST_NAME_INPUT = (By.ID, 'lastName')
     EMAIL_INPUT = (By.ID, 'email')

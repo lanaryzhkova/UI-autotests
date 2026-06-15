@@ -6,13 +6,15 @@ from utils.utils import get_longest_word_from_elements
 
 
 class SampleFormPage(BasePage):
-
+    """Страница Sample Form"""
     def load(self):
+        """Загрузить страницу"""
         self.open(PageUrls.SAMPLE_FORM_URL)
         self.wait.wait_for_url(PageUrls.SAMPLE_FORM_URL)
         return self
     
     def register(self, user: dict):
+        """Зарегистрироваться"""
         user["about"] = self.calc_text_for_about()
 
         self.send_keys_to_input(SampleFormLocators.FIRST_NAME_INPUT, user["first_name"])
@@ -31,9 +33,11 @@ class SampleFormPage(BasePage):
         return self
 
     def calc_text_for_about(self):
+        """Вычислить текст для About"""
         checkboxes = self.find_elements(SampleFormLocators.HOBBIES_CHECKBOXES)
         longest_hobby = get_longest_word_from_elements(checkboxes)
         return f"Самое длинное слово из предложенных хобби - {longest_hobby}"
 
     def is_success_message_displayed(self):
+        """Проверить отображение сообщения об успешой регистрации"""
         return self.is_visible(SampleFormLocators.SUCCESS_MESSAGE)

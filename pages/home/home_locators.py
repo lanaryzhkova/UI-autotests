@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class HomePageLocators:
+    """Локаторы для главной страницы"""
     HEADER_NAVIGATION_SECTION = (By.ID, 'site-navigation')
     HEADER_NAVIGATION_LIST = (By.ID, 'ast-hf-menu-1')
     HEADER_NAVIGATION_SUBMENU = (By.CSS_SELECTOR, '.sub-menu')

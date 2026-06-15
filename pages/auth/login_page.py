@@ -4,6 +4,7 @@ from data.data import PageUrls
 
 
 class LoginPage(BasePage):
+    """Страница логина"""
     USERNAME_INPUT = (By.ID, 'username')
     PASSWORD_INPUT = (By.ID, 'password')
     USERNAME_DESCRIPTION_INPUT = (By.ID, 'formly_1_input_username_0')
@@ -12,11 +13,13 @@ class LoginPage(BasePage):
 
 
     def load(self):
+        """Загрузить страницу"""
         self.open(PageUrls.LOGIN_URL)
         self.wait.wait_for_url(PageUrls.LOGIN_URL)
         return self
     
     def login(self, username: str, password: str, description: str):
+        """Вход в систему"""
         self.send_keys_to_input(self.USERNAME_INPUT, username)
         self.send_keys_to_input(self.PASSWORD_INPUT, password)
         self.send_keys_to_input(self.USERNAME_DESCRIPTION_INPUT, description)
@@ -24,8 +27,8 @@ class LoginPage(BasePage):
         return self
     
     def is_error_message_displayed(self):
+        """Отображение сообщения об ошибке"""
         return self.is_visible(self.ERROR_ELEMENT)
-    
 
     def assert_is_login_elements_visible(self):
         """Проверить видимость элементов формы логина"""

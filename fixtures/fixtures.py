@@ -2,13 +2,14 @@ import pytest
 
 from pages.banking.account.account_page import AccountPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
-from pages.banking.banking_manager.banking_manager_login import BankingManagerLoginPage
+from pages.banking.banking_manager.bank_manager_login import BankingManagerLoginPage
 from pages.banking.customer_page import CustomerPage
 from data.data import customer, PageUrls
 
 
 @pytest.fixture
 def created_customer(driver):
+    """Кастомер добавлен в сервис"""
     banking_app_page = BankingAppPage(driver)
     banking_manager_login_page = BankingManagerLoginPage(driver)
 
@@ -29,6 +30,7 @@ def created_customer(driver):
 
 @pytest.fixture
 def customer_with_account(driver, created_customer):
+    """Кастомер с открытым аккаунтом"""
     banking_app_page = BankingAppPage(driver)
     banking_manager_login_page = BankingManagerLoginPage(driver) 
 
@@ -45,6 +47,7 @@ def customer_with_account(driver, created_customer):
 
 @pytest.fixture
 def customer_is_logged_in(driver, customer_with_account):
+    """Кастомер вошёл в аккаунт"""
     banking_app_page = BankingAppPage(driver)
     banking_manager_login_page = BankingManagerLoginPage(driver) 
     customer_page = CustomerPage(driver)
@@ -60,6 +63,7 @@ def customer_is_logged_in(driver, customer_with_account):
 
 @pytest.fixture
 def customer_with_balance(driver, customer_is_logged_in):
+    """Кастомер с балансом 10000"""
     account_page = AccountPage(driver)
 
     account_page.deposit_succesfully("10000")
@@ -68,6 +72,7 @@ def customer_with_balance(driver, customer_is_logged_in):
 
 @pytest.fixture
 def customer_with_transactions(driver, customer_is_logged_in):
+    """Кастомер с историей транзакций"""
     account_page = AccountPage(driver)
 
     account_page.deposit_succesfully("10000")

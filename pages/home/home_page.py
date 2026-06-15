@@ -6,27 +6,22 @@ from pages.shared.header_contacts_section import HeaderContactsSection
 
 
 class HomePage(BasePage):
-
+    """Главная страница"""
     def load(self):
+        """Загрузить страницу"""
         self.open(PageUrls.BASE_URL)
         self.driver.get(PageUrls.BASE_URL)
         self.wait.wait_for_url(PageUrls.BASE_URL)
         return self
-    
-    def click_course_slider_next(self):
-        self.click(self.find_element(HomePageLocators.COURSES_NEXT_BUTTON))
-        return self
-
-    def click_course_slider_prev(self):
-        self.click(self.find_element(HomePageLocators.COURSES_PREV_BUTTON))
-        return self
 
     def get_header_navigation_links(self):
+        """Получить ссылки из меню навигации"""
         navigation_list = self.find_element(HomePageLocators.HEADER_NAVIGATION_LIST)
         links = navigation_list.find_elements(*HomePageLocators.MENU_LINK)
         return links
     
     def get_header_navigation_submenu_links(self):
+        """Получить ссылки из подменю навигации"""
         submenu = self.find_element(HomePageLocators.HEADER_NAVIGATION_SUBMENU)
         links = submenu.find_elements(*HomePageLocators.MENU_LINK)
         return links
@@ -42,10 +37,11 @@ class HomePage(BasePage):
         
         for element_name, locator in elements.items():
             assert self.is_visible(locator), f"{element_name} отсутствует"
-        
+
         return True
     
     def is_header_navigation_visible(self):
+        """Проверить видимость навигации в хедере"""
         return self.is_visible(HomePageLocators.HEADER_NAVIGATION_SECTION)
     
 
