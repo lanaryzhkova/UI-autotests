@@ -1,0 +1,53 @@
+from pages.banking.banking_app.banking_app_page import BankingAppPage
+from pages.banking.banking_manager.banking_manager_login import BankingManagerLoginPage
+from pages.banking.sample_form.sample_form_page import SampleFormPage
+from pages.banking.customer_page import CustomerPage
+from data.data import sample_form_user as user, customer, PageUrls
+
+
+class TestBankingAppPage:
+
+    def test_valid_fill_sample_form(self, driver):
+        banking_app_page = BankingAppPage(driver)
+        sample_form_page = SampleFormPage(driver)
+        banking_app_page.load()
+
+        banking_app_page.go_to_sample_form()
+        sample_form_page.register(user)
+
+        assert sample_form_page.is_success_message_displayed(), "Сообщение об успешной отправке формы не отображается"
+
+    def test_add_customer(self, driver):
+        banking_app_page = BankingAppPage(driver)
+        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_app_page.load()
+        banking_app_page.go_to_bank_manager_login()
+        banking_manager_login_page.go_to_add_customer()
+
+        banking_manager_login_page.add_customer(customer["first_name"], customer["last_name"], customer["postcode"])
+
+        assert banking_manager_login_page.alert_is_present(), "Алерт с подтверждением добавления клиента не отображается"
+        banking_manager_login_page.accept_alert()
+
+    def test_open_account(self, driver, created_customer):
+        banking_app_page = BankingAppPage(driver)
+        banking_manager_login_page = BankingManagerLoginPage(driver)
+        banking_app_page.go_to_bank_manager_login()
+        banking_manager_login_page.go_to_open_account()
+
+        banking_manager_login_page.open_account(created_customer, "Dollar")
+
+        assert banking_manager_login_page.alert_is_present(), "Алерт с подтверждением открытия аккаунта не отображается"
+        banking_manager_login_page.accept_alert()
+
+    def test_customer_login(self, driver, created_customer):
+        banking_app_page = BankingAppPage(driver)
+        banking_manager_login_page = BankingManagerLoginPage(driver)
+        customer_page = CustomerPage(driver)
+        banking_app_page.go_to_customer_login()
+
+        customer_page.login_customer(created_customer)
+        banking_manager_login_page.wait.wait_for_url(PageUrls.CUSTOMER_ACCOUNT_URL)
+
+        assert banking_manager_login_page.get_current_url() == PageUrls.CUSTOMER_ACCOUNT_URL, "Переход на страницу аккаунта не произведен"
+        assert 'Welcome ' + created_customer in customer_page.check_account_welcome(created_customer)
