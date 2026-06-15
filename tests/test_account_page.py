@@ -61,7 +61,7 @@ class TestAccountPage:
 
         account_page.go_to_transactions()
         assert account_page.get_last_transaction_amount() != "100000", (
-            f"Ожидалась транзакиця {1000000}, получена {account_page.get_last_transaction_amount()}"
+            f"Ожидалась транзакиця 1000000, получена {account_page.get_last_transaction_amount()}"
         )
 
     def test_check_balance(self, driver, customer_with_transactions):

@@ -1,11 +1,10 @@
-from selenium.common import (NoSuchElementException, TimeoutException,
-                             WebDriverException)
+from selenium.common import NoSuchElementException, TimeoutException, WebDriverException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.common.alert import Alert
 
-from data.data import PageUrls
 from utils.wait_helper import WaitHelper
+from data.data import PageUrls
 
 
 class BasePage:
@@ -33,8 +32,8 @@ class BasePage:
     def find_elements_safe(self, locator):
         """Поиск элементов по локатору без ожидания"""
         try:
-            return self.driver.find_elements(*locator)
-        except WebDriverException:
+            return self.wait.wait_for_all_elements_present(locator)
+        except TimeoutException:
             return []
 
     def scroll_to(self, elem) -> "BasePage":

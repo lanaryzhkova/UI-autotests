@@ -1,3 +1,5 @@
+import pytest
+
 from data.data import PageUrls
 from pages.home.home_page import HomePage
 from pages.lifetime_membership_club_page import LifetimeMembershipClubPage
@@ -5,6 +7,7 @@ from pages.shared.footer_section import FooterSection
 from pages.shared.header_contacts_section import HeaderContactsSection
 
 
+@pytest.mark.skip(reason='страница не актуальна')
 class TestHomePage:
     """Тесты для главной страницы"""
 

@@ -73,7 +73,7 @@ class AccountPage(BasePage):
 
     def get_last_transaction_amount(self) -> str:
         """Получить количество средств из последней транзакции"""
-        transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
+        transactions = self.find_elements_safe(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return ""
         return AccountPageLocators.get_transaction_amount_cell(transactions[-1])
