@@ -47,7 +47,6 @@ class BasePage:
     def click(self, element: WebElement) -> "BasePage":
         """Метод нажатия на элемент"""
         elem = element
-        self.scroll_to(elem)
         elem.click()
         return self
 
@@ -62,10 +61,10 @@ class BasePage:
         """Метод получения текста элемента"""
         return element.text.strip()
 
-    def is_visible(self, locator: tuple) -> bool:
+    def is_visible(self, locator: tuple, timeout: int = 5) -> bool:
         """Метод проверки видимости элемента"""
         try:
-            self.wait.wait_for_element_visible(locator)
+            self.wait.wait_for_element_visible(locator, timeout)
             return True
         except TimeoutException:
             return False

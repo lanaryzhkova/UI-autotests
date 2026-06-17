@@ -1,5 +1,4 @@
 import random
-import time
 
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -23,8 +22,9 @@ class AccountPage(BasePage):
 
     def go_to_transactions(self) -> "AccountPage":
         """Перейти к транзакциям"""
-        time.sleep(2)
         self.click(self.find_element(AccountPageLocators.TRANSACTIONS_TAB_BUTTON))
+        if not self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=2):
+            self.driver.refresh()
         return self
 
     def go_to_withdrawl(self) -> "AccountPage":
@@ -61,18 +61,19 @@ class AccountPage(BasePage):
 
     def is_success_deposit(self) -> bool:
         """Проверка отображения сообщения об успешном пополнении баланса"""
-        return self.is_visible(AccountPageLocators.DEPOSIT_SUCCESS_MESSAGE)
+        return self.is_visible(AccountPageLocators.DEPOSIT_SUCCESS_MESSAGE, timeout=2)
 
     def is_success_withdrawl(self) -> bool:
         """Проверка отображения сообщения об успешном снятии средств"""
-        return self.is_visible(AccountPageLocators.WITHDRAWL_SUCCESS_MESSAGE)
+        return self.is_visible(AccountPageLocators.WITHDRAWL_SUCCESS_MESSAGE, timeout=2)
 
     def is_failed_withdrawl(self) -> bool:
         """Проверка отображения сообщения об ошибке снятия средств"""
-        return self.is_visible(AccountPageLocators.WITHDRAWL_FAIL_MESSAGE)
+        return self.is_visible(AccountPageLocators.WITHDRAWL_FAIL_MESSAGE, timeout=2)
 
     def get_last_transaction_amount(self) -> str:
         """Получить количество средств из последней транзакции"""
+        self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements_safe(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return ""
@@ -98,6 +99,7 @@ class AccountPage(BasePage):
 
     def get_balance_from_transactions(self) -> int:
         """Получить баланс исходя из транзакций"""
+        self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return 0

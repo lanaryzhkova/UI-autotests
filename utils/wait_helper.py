@@ -7,11 +7,12 @@ class WaitHelper:
 
     def __init__(self, driver, timeout=10):
         self.driver = driver
+        self.timeout = timeout
         self.wait = WebDriverWait(driver, timeout)
 
-    def wait_for_element_visible(self, locator):
+    def wait_for_element_visible(self, locator, timeout=None):
         """Ожидает, пока элемент станет видимым на странице"""
-        return self.wait.until(
+        return WebDriverWait(self.driver, timeout or self.timeout).until(
             EC.visibility_of_element_located(locator),
             message=f"Элемент с локатором {locator} не виден",
         )
