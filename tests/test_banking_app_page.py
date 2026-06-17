@@ -1,5 +1,6 @@
-from data.data import PageUrls, customer
+from data.data import customer
 from data.data import sample_form_user as user
+from pages.banking.account.account_page import AccountPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
 from pages.banking.customer_page import CustomerPage
@@ -61,11 +62,11 @@ class TestBankingAppPage:
         banking_app_page.go_to_customer_login()
 
         customer_page.login_customer(created_customer)
-        banking_manager_login_page.wait.wait_for_url(PageUrls.CUSTOMER_ACCOUNT_URL)
+        banking_manager_login_page.wait.wait_for_url(AccountPage.URL)
 
         assert (
             banking_manager_login_page.get_current_url()
-            == PageUrls.CUSTOMER_ACCOUNT_URL
+            == AccountPage.URL
         ), "Переход на страницу аккаунта не произведен"
         assert "Welcome " + created_customer in customer_page.check_account_welcome(
             created_customer

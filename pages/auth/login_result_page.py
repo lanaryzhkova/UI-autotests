@@ -1,20 +1,19 @@
 from selenium.webdriver.common.by import By
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 
 class LoginResultPage(BasePage):
     """Страница после успешного логина"""
+    URL = "https://www.way2automation.com/angularjs-protractor/registeration/#/"
 
     TEXT_ELEMENT = (By.XPATH, '//*[contains(text(), "You\'re logged in!!")]')
     LOGOUT_BUTTON = (By.XPATH, '//*[contains(text(), "Logout")]')
 
-    def load(self) -> "LoginResultPage":
+    def load(self):
         """Загрузка страницы"""
-        self.open(PageUrls.LOGIN_RESULT_URL)
-        self.wait.wait_for_url(PageUrls.LOGIN_RESULT_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def is_logged_in(self) -> bool:
         """Проверяет отображение сообщения о входе в систему"""

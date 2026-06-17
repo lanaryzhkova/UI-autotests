@@ -1,20 +1,3 @@
-class PageUrls:
-    """Ссылки на страницы системы"""
-
-    BASE_URL = "https://www.way2automation.com/"
-    LIFETIME_MEMBERSHIP_URL = BASE_URL + "lifetime-membership-club/"
-    LOGIN_URL = BASE_URL + "angularjs-protractor/registeration/#/login"
-    LOGIN_RESULT_URL = BASE_URL + "angularjs-protractor/registeration/#/"
-    BANKING_APP_URL = BASE_URL + "angularjs-protractor/banking/#/login"
-    SAMPLE_FORM_URL = BASE_URL + "angularjs-protractor/banking/registrationform.html"
-    BANK_MANAGER_URL = BASE_URL + "angularjs-protractor/banking/#/manager"
-    ADD_CUSTOMER_URL = BASE_URL + "angularjs-protractor/banking/#/manager/addCust"
-    OPEN_ACCOUNT_URL = BASE_URL + "angularjs-protractor/banking/#/manager/openAccount"
-    CUSTOMER_LOGIN_URL = BASE_URL + "angularjs-protractor/banking/#/customer"
-    CUSTOMER_ACCOUNT_URL = BASE_URL + "angularjs-protractor/banking/#/account"
-    CUSTOMERS_URL = BASE_URL + "angularjs-protractor/banking/#/manager/list"
-
-
 expected_contact_links = [
     "https://wa.me/+919711111558",
     "https://wa.me/+919711191558",

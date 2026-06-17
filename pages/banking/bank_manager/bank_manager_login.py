@@ -1,7 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 from .bank_manager_locators import BankManagerPageLocators
@@ -9,29 +8,34 @@ from .bank_manager_locators import BankManagerPageLocators
 
 class BankManagerLoginPage(BasePage):
     """Страница Bank Manager Login"""
+    URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager"
+    
+    OPEN_ACCOUNT_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/openAccount"
+    SAMPLE_FORM_URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html"
+    CUSTOMERS_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/list"
+    ADD_CUSTOMER_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/addCust"
 
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.BANK_MANAGER_URL)
-        self.wait.wait_for_url(PageUrls.BANK_MANAGER_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def go_to_add_customer(self) -> "BankManagerLoginPage":
         """Перейти к Add Customer"""
         self.click(self.find_element(BankManagerPageLocators.ADD_CUSTOMER_BUTTON))
-        self.wait.wait_for_url(PageUrls.ADD_CUSTOMER_URL)
+        self.wait.wait_for_url(self.ADD_CUSTOMER_URL)
         return self
 
     def go_to_open_account(self) -> "BankManagerLoginPage":
         """Перейти к Open Account"""
         self.click(self.find_element(BankManagerPageLocators.OPEN_ACCOUNT_BUTTON))
-        self.wait.wait_for_url(PageUrls.OPEN_ACCOUNT_URL)
+        self.wait.wait_for_url(self.OPEN_ACCOUNT_URL)
         return self
 
     def go_to_customers(self) -> "BankManagerLoginPage":
         """Перейти к Customers"""
         self.click(self.find_element(BankManagerPageLocators.CUSTOMERS_BUTTON))
-        self.wait.wait_for_url(PageUrls.CUSTOMERS_URL)
+        self.wait.wait_for_url(self.CUSTOMERS_URL)
         return self
 
     def add_customer(

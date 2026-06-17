@@ -1,6 +1,6 @@
 import pytest
 
-from data.data import PageUrls, customer
+from data.data import customer
 from pages.banking.account.account_page import AccountPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
@@ -57,10 +57,10 @@ def customer_is_logged_in(driver, customer_with_account) -> str:
     banking_app_page.load()
     banking_app_page.go_to_customer_login()
     customer_page.login_customer(customer_with_account)
-    banking_manager_login_page.wait.wait_for_url(PageUrls.CUSTOMER_ACCOUNT_URL)
+    banking_manager_login_page.wait.wait_for_url(AccountPage.URL)
 
     assert (
-        banking_manager_login_page.get_current_url() == PageUrls.CUSTOMER_ACCOUNT_URL
+        banking_manager_login_page.get_current_url() == AccountPage.URL
     ), "Переход на страницу аккаунта не произведен"
 
     return customer_with_account

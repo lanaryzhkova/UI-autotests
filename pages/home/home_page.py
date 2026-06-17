@@ -1,4 +1,3 @@
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 from .home_locators import HomePageLocators
@@ -9,10 +8,8 @@ class HomePage(BasePage):
 
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.BASE_URL)
-        self.driver.get(PageUrls.BASE_URL)
-        self.wait.wait_for_url(PageUrls.BASE_URL)
-        return self
+        self.open(BasePage.URL)
+        self.wait.wait_for_url(BasePage.URL)
 
     def get_header_navigation_links(self) -> list:
         """Получить ссылки из меню навигации"""

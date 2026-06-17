@@ -1,19 +1,20 @@
-from selenium.common import NoSuchElementException, TimeoutException, WebDriverException
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.remote.webelement import WebElement
 
 from utils.wait_helper import WaitHelper
-from data.data import PageUrls
 
 
 class BasePage:
     """Базовый класс"""
 
+    URL = "https://www.way2automation.com/"
+
     def __init__(self, driver):
         """Инициализация базового класса"""
         self.driver = driver
-        self.base_url = PageUrls.BASE_URL
+        self.base_url = BasePage.URL
         self.wait = WaitHelper(driver, 10)
 
     def open(self, url: str) -> "BasePage":

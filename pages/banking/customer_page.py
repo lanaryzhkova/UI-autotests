@@ -1,12 +1,12 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 
 class CustomerPage(BasePage):
     """Страница кастомера"""
+    URL = "https://www.way2automation.com/angularjs-protractor/banking/#/customer"
 
     CUSTOMER_SELECT = (By.ID, "userSelect")
     CUSTOMER_LOGIN_BUTTON = (By.XPATH, "//button[text()='Login']")
@@ -14,9 +14,8 @@ class CustomerPage(BasePage):
 
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.CUSTOMER_LOGIN_URL)
-        self.wait.wait_for_url(PageUrls.CUSTOMER_LOGIN_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def login_customer(self, customer_name: str) -> "CustomerPage":
         """Войти в аккаунт кастомера"""

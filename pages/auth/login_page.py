@@ -1,11 +1,11 @@
 from selenium.webdriver.common.by import By
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
     """Страница логина"""
+    URL = "https://www.way2automation.com/angularjs-protractor/registeration/#/login"
 
     USERNAME_INPUT = (By.ID, "username")
     PASSWORD_INPUT = (By.ID, "password")
@@ -18,9 +18,8 @@ class LoginPage(BasePage):
 
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.LOGIN_URL)
-        self.wait.wait_for_url(PageUrls.LOGIN_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def login(self, username: str, password: str, description: str) -> "LoginPage":
         """Вход в систему"""

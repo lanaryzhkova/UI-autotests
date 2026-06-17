@@ -1,4 +1,4 @@
-from data.data import PageUrls, not_valid_user, valid_user
+from data.data import not_valid_user, valid_user
 from pages.auth.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
 
@@ -23,7 +23,7 @@ class TestLoginPage:
             valid_user["username"], valid_user["password"], valid_user["description"]
         )
 
-        assert login_page.wait.wait_for_url(PageUrls.LOGIN_RESULT_URL), (
+        assert login_page.wait.wait_for_url(LoginResultPage.URL), (
             "Пользователь не был перенаправлен после успешного входа"
         )
         assert login_result_page.is_logged_in(), (

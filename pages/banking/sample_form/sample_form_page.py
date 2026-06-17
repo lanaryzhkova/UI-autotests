@@ -1,6 +1,5 @@
 from selenium.webdriver.support.select import Select
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 from utils.utils import get_longest_word_from_elements
 
@@ -9,12 +8,12 @@ from .sample_form_locators import SampleFormLocators
 
 class SampleFormPage(BasePage):
     """Страница Sample Form"""
+    URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html"
 
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.SAMPLE_FORM_URL)
-        self.wait.wait_for_url(PageUrls.SAMPLE_FORM_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def register(self, user: dict) -> "SampleFormPage":
         """Зарегистрироваться"""

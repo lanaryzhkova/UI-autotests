@@ -3,18 +3,18 @@ import time
 
 from selenium.webdriver.remote.webelement import WebElement
 
-from data.data import PageUrls
 from pages.base_page import BasePage
 
 from .account_page_locators import AccountPageLocators
 
 
 class AccountPage(BasePage):
+    URL = "https://www.way2automation.com/angularjs-protractor/banking/#/account"
+
     def load(self):
         """Загрузить страницу"""
-        self.open(PageUrls.CUSTOMER_ACCOUNT_URL)
-        self.wait.wait_for_url(PageUrls.CUSTOMER_ACCOUNT_URL)
-        return self
+        self.open(self.URL)
+        self.wait.wait_for_url(self.URL)
 
     def go_to_deposit(self) -> "AccountPage":
         """Перейти к пополнениям"""

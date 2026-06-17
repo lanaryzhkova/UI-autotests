@@ -1,6 +1,5 @@
 import pytest
 
-from data.data import PageUrls
 from pages.home.home_page import HomePage
 from pages.lifetime_membership_club_page import LifetimeMembershipClubPage
 from pages.shared.footer_section import FooterSection
@@ -68,7 +67,7 @@ class TestHomePage:
         home_page.hover_over_menu_item("All Courses")
         home_page.click_submenu_item("Lifetime Membership")
 
-        assert home_page.wait.wait_for_url(PageUrls.LIFETIME_MEMBERSHIP_URL), (
+        assert home_page.wait.wait_for_url(LifetimeMembershipClubPage.URL), (
             "Переход по ссылке 'Lifetime Membership Club' не произошел"
         )
         assert (
