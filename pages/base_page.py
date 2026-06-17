@@ -18,26 +18,34 @@ class BasePage:
         self.wait = WaitHelper(driver, 10)
 
     def open(self, url: str) -> "BasePage":
-        """Открывает страницу по ссылке"""
+        """Открывает страницу по ссылке
+        Args:
+            url: ссылка на страницу"""
         self.driver.get(url or self.base_url)
         return self
 
     def find_element(self, locator: tuple) -> WebElement:
-        """Поиск элемента по локатору"""
+        """Поиск элемента по локатору
+        Args:
+            locator: локатор"""
         return self.wait.wait_for_element_visible(locator)
 
     def find_elements(self, locator: tuple) -> list[WebElement]:
-        """Поиск элементов по локатору"""
+        """Поиск элементов по локатору
+        Args:
+            locator: локатор"""
         return self.wait.wait_for_all_elements_visible(locator)
 
     def find_elements_safe(self, locator):
-        """Поиск элементов по локатору без ожидания"""
+        """Поиск элементов по локатору без ожидания
+        Args:
+            locator: локатор"""
         try:
             return self.wait.wait_for_all_elements_present(locator)
         except TimeoutException:
             return []
 
-    def scroll_to(self, elem) -> "BasePage":
+    def scroll_to(self, elem: WebElement) -> "BasePage":
         """Прокрутка до элемента"""
         self.driver.execute_script(
             "arguments[0].scrollIntoView({block: 'start'});", elem
@@ -51,7 +59,10 @@ class BasePage:
         return self
 
     def send_keys_to_input(self, locator: tuple, text: str):
-        """Метод для ввода текста"""
+        """Метод для ввода текста
+        Args:
+            locator: локатор
+            text: текст"""
         elem = self.wait.wait_for_element_clickable(locator)
         elem.clear()
         elem.send_keys(text)
@@ -84,11 +95,12 @@ class BasePage:
         except TimeoutException:
             return False
 
-    def accept_alert(self):
+    def accept_alert(self) -> bool:
         try:
             self.wait.wait_for_alert()
             alert = Alert(self.driver)
             alert.accept()
+            return True
         except TimeoutException:
             return False
 
@@ -99,5 +111,7 @@ class BasePage:
         return element.get_attribute(attribute)
 
     def get_current_url(self) -> str:
-        """Метод получения текущего URL"""
+        """Метод получения текущего URL
+        Returns:
+            текущий URL"""
         return self.driver.current_url

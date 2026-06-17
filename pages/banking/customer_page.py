@@ -18,14 +18,24 @@ class CustomerPage(BasePage):
         self.wait.wait_for_url(self.URL)
 
     def login_customer(self, customer_name: str) -> "CustomerPage":
-        """Войти в аккаунт кастомера"""
+        """
+        Войти в аккаунт кастомера
+        Args:
+            customer_name: Имя кастомера
+        """
         customers = Select(self.find_element(self.CUSTOMER_SELECT))
         customers.select_by_visible_text(customer_name)
         self.click(self.find_element(self.CUSTOMER_LOGIN_BUTTON))
         return self
 
     def check_account_welcome(self, customer_name: str) -> str:
-        """Проверить отображение приветствия"""
+        """
+        Проверить отображение приветствия
+        Args:
+            customer_name: Имя кастомера
+        
+        Returns:
+            Текст приветствия"""
         welcome_text = self.find_element(self.WELCOME_TEXT).text
         account_name = self.find_element(
             (By.XPATH, f"//strong[contains(., '{customer_name}')]")

@@ -41,7 +41,13 @@ class BankManagerLoginPage(BasePage):
     def add_customer(
         self, first_name: str, last_name: str, postcode: str
     ) -> "BankManagerLoginPage":
-        """Добавить кастомера"""
+        """
+        Добавить кастомера
+        Args:
+            first_name: Имя
+            last_name: Фамилия
+            postcode: Почтовый индекс
+        """
         self.send_keys_to_input(BankManagerPageLocators.FIRST_NAME_INPUT, first_name)
         self.send_keys_to_input(BankManagerPageLocators.LAST_NAME_INPUT, last_name)
         self.send_keys_to_input(BankManagerPageLocators.POSTCODE_INPUT, postcode)
@@ -53,7 +59,12 @@ class BankManagerLoginPage(BasePage):
     def open_account(
         self, customer_name: str, currency_value: str
     ) -> "BankManagerLoginPage":
-        """Открыть (создать) аккаунт с валютой"""
+        """
+        Открыть (создать) аккаунт с валютой
+        Args:
+            customer_name: Имя кастомера
+            currency_value: Валюта
+        """
         customers = Select(self.find_element(BankManagerPageLocators.CUSTOMER_SELECT))
         currency = Select(self.find_element(BankManagerPageLocators.CURRENCY_SELECT))
         customers.select_by_visible_text(customer_name)
@@ -63,7 +74,15 @@ class BankManagerLoginPage(BasePage):
         return self
 
     def search_customer(self, first_name: str, last_name: str) -> WebElement | bool:
-        """Найти кастомера"""
+        """
+        Найти кастомера
+        Args:
+            first_name: Имя
+            last_name: Фамилия
+        
+        Returns:
+            WebElement, если кастомер найден, иначе False
+        """
         self.send_keys_to_input(BankManagerPageLocators.SEARCH_INPUT, f"{first_name}")
         customers = self.find_elements(BankManagerPageLocators.CUSTOMER_ROW)
         for customer in customers:
@@ -72,7 +91,14 @@ class BankManagerLoginPage(BasePage):
         return False
 
     def delete_customer(self, first_name: str, last_name: str) -> bool:
-        """Удалить кастомера"""
+        """
+        Удалить кастомера
+        Args:
+            first_name: Имя
+            last_name: Фамилия
+        Returns:
+            True, если кастомер удален, иначе False
+        """
         customers = self.find_elements(BankManagerPageLocators.CUSTOMER_ROW)
         for customer in customers:
             if first_name in customer.text and last_name in customer.text:

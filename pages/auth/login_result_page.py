@@ -16,7 +16,10 @@ class LoginResultPage(BasePage):
         self.wait.wait_for_url(self.URL)
 
     def is_logged_in(self) -> bool:
-        """Проверяет отображение сообщения о входе в систему"""
+        """Проверяет отображение сообщения о входе в систему
+        Returns:
+            True, если сообщение отображается, иначе False
+        """
         return self.is_visible(self.TEXT_ELEMENT)
 
     def logout(self) -> "LoginResultPage":

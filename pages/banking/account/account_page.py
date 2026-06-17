@@ -34,45 +34,73 @@ class AccountPage(BasePage):
         return self
 
     def deposit(self, deposit: str) -> "AccountPage":
-        """Пополнить баланс"""
+        """
+        Пополнить баланс
+        Args:
+            deposit: Сумма пополнения
+        """
         self.send_keys_to_input(AccountPageLocators.AMOUNT_INPUT, deposit)
         self.click(self.find_element(AccountPageLocators.SUBMIT_BUTTON))
         return self
 
     def deposit_succesfully(self, deposit_value: str) -> "AccountPage":
-        """Успешно пополнить баланс"""
+        """
+        Успешно пополнить баланс
+        Args:
+            deposit_value: Сумма пополнения
+        """
         self.go_to_deposit()
         self.deposit(deposit_value)
         assert self.is_success_deposit(), "Пополнение прошло с ошибкой"
         return self
 
     def withdrawl(self, withdrawl: str) -> "AccountPage":
-        """Снять средства с баланса"""
+        """
+        Снять средства с баланса
+        Args:
+            withdrawl: Сумма снятия
+        """
         self.send_keys_to_input(AccountPageLocators.AMOUNT_INPUT, withdrawl)
         self.click(self.find_element(AccountPageLocators.SUBMIT_BUTTON))
         return self
 
     def withdrawl_successfully(self, withdrawl: str) -> "AccountPage":
-        """Успешно снять средства с баланса"""
+        """
+        Успешно снять средства с баланса
+        Args:
+            withdrawl: Сумма снятия
+        """
         self.go_to_withdrawl()
         self.withdrawl(withdrawl)
         assert self.is_success_withdrawl(), "Снятие прошло с ошибкой"
         return self
 
     def is_success_deposit(self) -> bool:
-        """Проверка отображения сообщения об успешном пополнении баланса"""
+        """Проверка отображения сообщения об успешном пополнении баланса
+        Returns:
+            True, если сообщение отображается, иначе False
+        """
         return self.is_visible(AccountPageLocators.DEPOSIT_SUCCESS_MESSAGE, timeout=2)
 
     def is_success_withdrawl(self) -> bool:
-        """Проверка отображения сообщения об успешном снятии средств"""
+        """Проверка отображения сообщения об успешном снятии средств
+        Returns:
+            True, если сообщение отображается, иначе False
+        """
         return self.is_visible(AccountPageLocators.WITHDRAWL_SUCCESS_MESSAGE, timeout=2)
 
     def is_failed_withdrawl(self) -> bool:
-        """Проверка отображения сообщения об ошибке снятия средств"""
+        """Проверка отображения сообщения об ошибке снятия средств
+        Returns:
+            True, если сообщение отображается, иначе False
+        """
         return self.is_visible(AccountPageLocators.WITHDRAWL_FAIL_MESSAGE, timeout=2)
 
     def get_last_transaction_amount(self) -> str:
-        """Получить количество средств из последней транзакции"""
+        """Получить количество средств из последней транзакции
+        Returns:
+            Количество средств в виде строки
+        """
         self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements_safe(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
@@ -80,7 +108,10 @@ class AccountPage(BasePage):
         return AccountPageLocators.get_transaction_amount_cell(transactions[-1])
 
     def is_transaction_with_null_amount(self) -> bool:
-        """Проверка наличия транзакции с нулевым значением средств"""
+        """Проверка наличия транзакции с нулевым значением средств
+        Returns:
+            True, если транзакция с нулевым значением средств найдена, иначе False
+        """
         transactions = self.find_elements_safe(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return False
@@ -90,15 +121,22 @@ class AccountPage(BasePage):
         )
 
     def get_balance(self) -> int:
-        """Получить баланс аккаунта"""
+        """Получить баланс аккаунта
+        Returns:
+            Баланс аккаунта в виде целого числа
+        """
         return int(self.find_element(AccountPageLocators.BALANCE_VALUE).text.strip())
 
     def gen_random_withdrawl(self) -> int:
-        """Сгенерировать случайное число для снятия средств"""
+        """Сгенерировать случайное число для снятия средств
+        Returns:
+            Сгенерированное число"""
         return random.randrange(1, int(self.get_balance()))
 
     def get_balance_from_transactions(self) -> int:
-        """Получить баланс исходя из транзакций"""
+        """Получить баланс исходя из транзакций
+        Returns:
+            Баланс аккаунта в виде целого числа"""
         self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
@@ -125,12 +163,16 @@ class AccountPage(BasePage):
         return self
 
     def count_transactions(self) -> int:
-        """Количество транзакций"""
+        """Количество транзакций
+        Returns:
+            Количество транзакций"""
         transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
         return len(transactions)
 
     def count_transactions_after_reset(self) -> bool | WebElement:
-        """Количество транзакций после сброса с ожиданием"""
+        """Количество транзакций после сброса с ожиданием
+        Returns:
+            Количество транзакций после сброса"""
         return self.wait.wait_for_element_invisible(
             AccountPageLocators.TRANSACTIONS_ROWS
         )
