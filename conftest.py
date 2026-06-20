@@ -1,0 +1,16 @@
+import pytest
+from selenium import webdriver
+
+pytest_plugins = ["fixtures.fixtures"]
+
+
+@pytest.fixture
+def driver():
+    # options = Options()
+    # options.add_argument("--headless=new")
+    # options.add_argument("--window-size=1920,1080")
+    # options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome()
+    yield driver
+    driver.quit()
