@@ -1,11 +1,16 @@
+import allure
+
 from pages.banking.account.account_page import AccountPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
 
-
+@allure.epic("Banking Application")
+@allure.feature("Account")
 class TestAccountPage:
     """Тесты для страницы Account"""
 
+    @allure.story("Успешное пополнение счета")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_valid_deposit(self, driver, customer_is_logged_in):
         """Тестирование успешного пополнения баланса"""
         account_page = AccountPage(driver)
@@ -19,6 +24,8 @@ class TestAccountPage:
             f"Сумма транзакции {account_page.get_last_transaction_amount()} не равна 100321"
         )
 
+    @allure.story("Неуспешное пополнение счета")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_not_valid_deposit(self, driver, customer_is_logged_in):
         """Тестирование пополнения с невалидным значением (0)"""
         account_page = AccountPage(driver)
@@ -37,6 +44,8 @@ class TestAccountPage:
             "Найдена транзакция с amount 0"
         )
 
+    @allure.story("Успешное снятие средств")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_valid_withdrawl(self, driver, customer_with_balance):
         """Тестирование успешного снятия средств"""
         account_page = AccountPage(driver)
@@ -46,9 +55,11 @@ class TestAccountPage:
 
         account_page.go_to_transactions()
         assert account_page.get_last_transaction_amount() == withdrawl_value, (
-            f"Ожидалась транзакиця {withdrawl_value}, получена {account_page.get_last_transaction_amount()}"
+            f"Ожидалась транзакция {withdrawl_value}, получена {account_page.get_last_transaction_amount()}"
         )
 
+    @allure.story("Неуспешное снятие средств")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_not_valid_withdrawl(self, driver, customer_is_logged_in):
         """Тестирование снятия средств с невалидным значением (1000000 при балансе 0)"""
         account_page = AccountPage(driver)
@@ -61,9 +72,11 @@ class TestAccountPage:
 
         account_page.go_to_transactions()
         assert account_page.get_last_transaction_amount() != "100000", (
-            f"Ожидалась транзакиця 1000000, получена {account_page.get_last_transaction_amount()}"
+            f"Ожидалась транзакция 1000000, получена {account_page.get_last_transaction_amount()}"
         )
 
+    @allure.story("Проверка баланса")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_check_balance(self, driver, customer_with_transactions):
         """Тестирование соответствия: баланс аккаунта = баланс, вычисленный по транзакциям"""
         account_page = AccountPage(driver)
@@ -73,9 +86,11 @@ class TestAccountPage:
         account_page.load()
         acc_bal = account_page.get_balance()
         assert trans_bal == acc_bal, (
-            f"Баланс по транзакицям: {trans_bal}, баланс на аккаунте: {acc_bal}"
+            f"Баланс по транзакциям: {trans_bal}, баланс на аккаунте: {acc_bal}"
         )
 
+    @allure.story("Снятие оставшихся средств")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_withdrawl_all(self, driver, customer_with_balance):
         """Тестирования снятия всех средств с баланса"""
         account_page = AccountPage(driver)
@@ -87,6 +102,8 @@ class TestAccountPage:
         assert account_page.is_success_withdrawl(), "Транзакция прошла не успешно"
         assert account_page.get_balance() == 0, "Баланс не нулевой"
 
+    @allure.story("Очистка истории транзакций")
+    @allure.severity(allure.severity_level.MINOR)
     def test_reset_transactions(self, driver, customer_with_transactions):
         """Тестирование сброса транзакций"""
         account_page = AccountPage(driver)
@@ -106,6 +123,8 @@ class TestAccountPage:
 
         assert balance == 0, f"Balance {balance}"
 
+    @allure.story("Поиск и удаление покупателя")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_search_and_delete_customer(self, driver, created_customer):
         """Тестирование поиска и удаления кастомера"""
         banking_app_page = BankingAppPage(driver)

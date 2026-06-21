@@ -1,3 +1,4 @@
+import allure
 import random
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -8,18 +9,22 @@ from .account_page_locators import AccountPageLocators
 
 
 class AccountPage(BasePage):
+    """Страница Account"""
     URL = "https://www.way2automation.com/angularjs-protractor/banking/#/account"
 
+    @allure.step("Загрузить страницу аккаунта")
     def load(self):
         """Загрузить страницу"""
         self.open(self.URL)
         self.wait.wait_for_url(self.URL)
 
+    @allure.step("Перейти во вкладку Deposit")
     def go_to_deposit(self) -> "AccountPage":
         """Перейти к пополнениям"""
         self.click(self.find_element(AccountPageLocators.DEPOSIT_TAB_BUTTON))
         return self
 
+    @allure.step("Перейти во вкладку Transactions")
     def go_to_transactions(self) -> "AccountPage":
         """Перейти к транзакциям"""
         self.click(self.find_element(AccountPageLocators.TRANSACTIONS_TAB_BUTTON))
@@ -27,12 +32,14 @@ class AccountPage(BasePage):
             self.driver.refresh()
         return self
 
+    @allure.step("Перейти во вкладку Withdrawl")
     def go_to_withdrawl(self) -> "AccountPage":
         """Перейти к снятиям"""
         self.click(self.find_element(AccountPageLocators.WITHDRAWL_TAB_BUTTON))
         self.wait.wait_for_element_visible(AccountPageLocators.WITHDRAWL_LABEL)
         return self
 
+    @allure.step("Пополнить баланс")
     def deposit(self, deposit: str) -> "AccountPage":
         """
         Пополнить баланс
@@ -43,6 +50,7 @@ class AccountPage(BasePage):
         self.click(self.find_element(AccountPageLocators.SUBMIT_BUTTON))
         return self
 
+    @allure.step("Успешно пополнить баланс")
     def deposit_succesfully(self, deposit_value: str) -> "AccountPage":
         """
         Успешно пополнить баланс
@@ -54,6 +62,7 @@ class AccountPage(BasePage):
         assert self.is_success_deposit(), "Пополнение прошло с ошибкой"
         return self
 
+    @allure.step("Снять средства с баланса")
     def withdrawl(self, withdrawl: str) -> "AccountPage":
         """
         Снять средства с баланса
@@ -64,6 +73,7 @@ class AccountPage(BasePage):
         self.click(self.find_element(AccountPageLocators.SUBMIT_BUTTON))
         return self
 
+    @allure.step("Успешно снять средства с баланса")
     def withdrawl_successfully(self, withdrawl: str) -> "AccountPage":
         """
         Успешно снять средства с баланса
@@ -96,12 +106,12 @@ class AccountPage(BasePage):
         """
         return self.is_visible(AccountPageLocators.WITHDRAWL_FAIL_MESSAGE, timeout=2)
 
+    @allure.step("Получить количество средств из последней транзакции")
     def get_last_transaction_amount(self) -> str:
         """Получить количество средств из последней транзакции
         Returns:
             Количество средств в виде строки
         """
-        self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements_safe(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return ""
@@ -120,24 +130,27 @@ class AccountPage(BasePage):
             for transaction in transactions
         )
 
+    @allure.step("Получить баланс аккаунта")
     def get_balance(self) -> int:
         """Получить баланс аккаунта
         Returns:
             Баланс аккаунта в виде целого числа
         """
+
         return int(self.find_element(AccountPageLocators.BALANCE_VALUE).text.strip())
 
+    @allure.step("Сгенерировать случайное число для снятия средств")
     def gen_random_withdrawl(self) -> int:
         """Сгенерировать случайное число для снятия средств
         Returns:
             Сгенерированное число"""
         return random.randrange(1, int(self.get_balance()))
 
+    @allure.step("Получить баланс исходя из транзакций")
     def get_balance_from_transactions(self) -> int:
         """Получить баланс исходя из транзакций
         Returns:
             Баланс аккаунта в виде целого числа"""
-        self.is_visible(AccountPageLocators.TRANSACTIONS_ROWS, timeout=5)
         transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
         if not transactions:
             return 0
@@ -152,16 +165,19 @@ class AccountPage(BasePage):
 
         return balance
 
+    @allure.step("Сбросить все транзакции")
     def reset_transactions(self) -> "AccountPage":
         """Сбросить все транзакции"""
         self.click(self.find_element(AccountPageLocators.RESET_TRANSACTION_BUTTON))
         return self
 
+    @allure.step("Перейти обратно из транзакций")
     def back_from_transactions(self) -> "AccountPage":
         """Перейти обратно из транзакций"""
         self.click(self.find_element(AccountPageLocators.BACK_TRANSACTION_BUTTON))
         return self
 
+    @allure.step("Посчитать количество транзакций")
     def count_transactions(self) -> int:
         """Количество транзакций
         Returns:
@@ -169,6 +185,7 @@ class AccountPage(BasePage):
         transactions = self.find_elements(AccountPageLocators.TRANSACTIONS_ROWS)
         return len(transactions)
 
+    @allure.step("Посчитать количество транзакций после сброса")
     def count_transactions_after_reset(self) -> bool | WebElement:
         """Количество транзакций после сброса с ожиданием
         Returns:

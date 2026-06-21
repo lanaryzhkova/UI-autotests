@@ -1,3 +1,5 @@
+import allure
+
 import pytest
 
 from pages.home.home_page import HomePage
@@ -6,6 +8,8 @@ from pages.shared.footer_section import FooterSection
 from pages.shared.header_contacts_section import HeaderContactsSection
 
 
+@allure.epic("Home Page")
+@allure.feature("Home")
 @pytest.mark.skip(reason='страница не актуальна')
 class TestHomePage:
     """Тесты для главной страницы"""

@@ -1,3 +1,5 @@
+import allure
+
 from selenium.webdriver.support.select import Select
 
 from pages.base_page import BasePage
@@ -10,11 +12,13 @@ class SampleFormPage(BasePage):
     """Страница Sample Form"""
     URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html"
 
+    @allure.step("Загрузить страницу Sample Form")
     def load(self):
         """Загрузить страницу"""
         self.open(self.URL)
         self.wait.wait_for_url(self.URL)
 
+    @allure.step("Зарегистрироваться")
     def register(self, user: dict) -> "SampleFormPage":
         """
         Зарегистрироваться
@@ -38,6 +42,7 @@ class SampleFormPage(BasePage):
         self.click(self.find_element(SampleFormLocators.SUBMIT_BUTTON))
         return self
 
+    @allure.step("Вычислить текст для About")
     def calc_text_for_about(self) -> str:
         """Вычислить текст для About
         Returns:
