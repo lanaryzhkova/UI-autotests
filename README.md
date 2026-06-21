@@ -14,7 +14,8 @@ pip install -r requirements.txt
 ## Запуск
 
 ```bash
-pytest
+pytest -n auto --alluredir=./allure-results
+allure serve
 ```
 
 ### Тесты подготовлены в соответствии с чек-листом для страниц авторизации и банкинга
