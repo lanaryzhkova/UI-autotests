@@ -4,6 +4,7 @@ from data.data import not_valid_user, valid_user
 from pages.auth.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
 
+
 @allure.epic("Authentication")
 @allure.feature("Login Page")
 class TestLoginPage:

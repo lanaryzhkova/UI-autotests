@@ -1,6 +1,6 @@
 import pytest
-from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 pytest_plugins = ["fixtures.customer_state_fixtures"]
 
