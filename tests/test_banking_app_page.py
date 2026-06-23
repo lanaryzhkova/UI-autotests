@@ -1,3 +1,5 @@
+import allure
+
 from data.data import customer
 from data.data import sample_form_user as user
 from pages.banking.account.account_page import AccountPage
@@ -7,9 +9,13 @@ from pages.banking.customer_page import CustomerPage
 from pages.banking.sample_form.sample_form_page import SampleFormPage
 
 
+@allure.epic("Banking Application")
 class TestBankingAppPage:
     """Тесты для страницы BankingApp"""
-
+    
+    @allure.feature("Sample Form")
+    @allure.story("Успешная регистрация")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_valid_fill_sample_form(self, driver):
         """Тестирование успешного заполнения Sample Form"""
         banking_app_page = BankingAppPage(driver)
@@ -23,6 +29,9 @@ class TestBankingAppPage:
             "Сообщение об успешной отправке формы не отображается"
         )
 
+    @allure.feature("Bank Manager")
+    @allure.story("Добавление клиента")
+    @allure.severity(allure.severity_level.NORMAL)
     def test_add_customer(self, driver):
         """Тестирование добавления кастомера"""
         banking_app_page = BankingAppPage(driver)
@@ -40,6 +49,8 @@ class TestBankingAppPage:
         )
         banking_manager_login_page.accept_alert()
 
+    @allure.feature("Bank Manager")
+    @allure.story("Открытие счета")
     def test_open_account(self, driver, created_customer):
         """Тестирование открытия (создания) аккаунта"""
         banking_app_page = BankingAppPage(driver)
@@ -54,6 +65,9 @@ class TestBankingAppPage:
         )
         banking_manager_login_page.accept_alert()
 
+    @allure.feature("Customer")
+    @allure.story("Вход в аккаунт")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_customer_login(self, driver, created_customer):
         """Тестирования входа в аккаунт кастомера"""
         banking_app_page = BankingAppPage(driver)

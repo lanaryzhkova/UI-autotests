@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -16,11 +17,13 @@ class LoginPage(BasePage):
         '//*[contains(text(), "Username or password is incorrect")]',
     )
 
+    @allure.step("Загрузить страницу логина")
     def load(self):
         """Загрузить страницу"""
         self.open(self.URL)
         self.wait.wait_for_url(self.URL)
 
+    @allure.step("Войти в учётную запись")
     def login(self, username: str, password: str, description: str) -> "LoginPage":
         """
         Вход в систему
@@ -42,6 +45,7 @@ class LoginPage(BasePage):
         """
         return self.is_visible(self.ERROR_ELEMENT)
 
+    @allure.step("Проверить отображение элементов формы логина")
     def assert_is_login_elements_visible(self) -> bool:
         """Проверить видимость элементов формы логина
         Returns:

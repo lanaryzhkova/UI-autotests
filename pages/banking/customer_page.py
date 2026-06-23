@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
@@ -12,11 +13,13 @@ class CustomerPage(BasePage):
     CUSTOMER_LOGIN_BUTTON = (By.XPATH, "//button[text()='Login']")
     WELCOME_TEXT = (By.XPATH, "//strong[contains(., 'Welcome')]")
 
+    @allure.step("Загрузить страницу кастомера")
     def load(self):
         """Загрузить страницу"""
         self.open(self.URL)
         self.wait.wait_for_url(self.URL)
 
+    @allure.step("Войти в аккаунт кастомера")
     def login_customer(self, customer_name: str) -> "CustomerPage":
         """
         Войти в аккаунт кастомера
@@ -28,6 +31,7 @@ class CustomerPage(BasePage):
         self.click(self.find_element(self.CUSTOMER_LOGIN_BUTTON))
         return self
 
+    @allure.step("Проверить отображение приветствия")
     def check_account_welcome(self, customer_name: str) -> str:
         """
         Проверить отображение приветствия

@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -10,6 +11,7 @@ class LoginResultPage(BasePage):
     TEXT_ELEMENT = (By.XPATH, '//*[contains(text(), "You\'re logged in!!")]')
     LOGOUT_BUTTON = (By.XPATH, '//*[contains(text(), "Logout")]')
 
+    @allure.step("Загрузить страницу после успешного логина")
     def load(self):
         """Загрузка страницы"""
         self.open(self.URL)
@@ -22,6 +24,7 @@ class LoginResultPage(BasePage):
         """
         return self.is_visible(self.TEXT_ELEMENT)
 
+    @allure.step("Выйти из учётной записи")
     def logout(self) -> "LoginResultPage":
         """Выйти из системы"""
         self.click(self.find_element(self.LOGOUT_BUTTON))

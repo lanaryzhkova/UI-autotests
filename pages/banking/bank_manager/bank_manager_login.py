@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 
@@ -15,29 +16,34 @@ class BankManagerLoginPage(BasePage):
     CUSTOMERS_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/list"
     ADD_CUSTOMER_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/addCust"
 
+    @allure.step("Загрузить страницу Bank Manager Login")
     def load(self):
         """Загрузить страницу"""
         self.open(self.URL)
         self.wait.wait_for_url(self.URL)
 
+    @allure.step("Перейти к Add Customer")
     def go_to_add_customer(self) -> "BankManagerLoginPage":
         """Перейти к Add Customer"""
         self.click(self.find_element(BankManagerPageLocators.ADD_CUSTOMER_BUTTON))
         self.wait.wait_for_url(self.ADD_CUSTOMER_URL)
         return self
 
+    @allure.step("Перейти к Open Account")
     def go_to_open_account(self) -> "BankManagerLoginPage":
         """Перейти к Open Account"""
         self.click(self.find_element(BankManagerPageLocators.OPEN_ACCOUNT_BUTTON))
         self.wait.wait_for_url(self.OPEN_ACCOUNT_URL)
         return self
 
+    @allure.step("Перейти к Customers")
     def go_to_customers(self) -> "BankManagerLoginPage":
         """Перейти к Customers"""
         self.click(self.find_element(BankManagerPageLocators.CUSTOMERS_BUTTON))
         self.wait.wait_for_url(self.CUSTOMERS_URL)
         return self
 
+    @allure.step("Добавить кастомера")
     def add_customer(
         self, first_name: str, last_name: str, postcode: str
     ) -> "BankManagerLoginPage":
@@ -56,6 +62,7 @@ class BankManagerLoginPage(BasePage):
         )
         return self
 
+    @allure.step("Открыть (создать) аккаунт с валютой")
     def open_account(
         self, customer_name: str, currency_value: str
     ) -> "BankManagerLoginPage":
@@ -73,6 +80,7 @@ class BankManagerLoginPage(BasePage):
         self.click(self.find_element(BankManagerPageLocators.PROCESS_BUTTON))
         return self
 
+    @allure.step("Найти кастомера по имени")
     def search_customer(self, first_name: str, last_name: str) -> WebElement | bool:
         """
         Найти кастомера
@@ -90,6 +98,7 @@ class BankManagerLoginPage(BasePage):
                 return customer
         return False
 
+    @allure.step("Удалить кастомера")
     def delete_customer(self, first_name: str, last_name: str) -> bool:
         """
         Удалить кастомера
