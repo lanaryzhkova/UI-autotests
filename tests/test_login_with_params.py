@@ -1,18 +1,9 @@
-from dataclasses import dataclass
-
 import allure
 import pytest
 
+from data.login_data import login_test_data, login_test_ids
 from pages.auth.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
-
-
-@dataclass
-class LoginData:
-    username: str
-    password: str
-    description: str
-    expected: bool
 
 
 @allure.epic("Authentication")
@@ -20,37 +11,10 @@ class LoginData:
 class TestLoginPage:
     """Тесты для страницы логина"""
 
-    test_data = [
-            LoginData(username="angular", password="password", description="description", expected=True),
-            LoginData(username="test", password="password", description="description", expected=False),
-            LoginData(username="angular", password="test", description="description", expected=False),
-            LoginData(username="angular", password="password", description="", expected=False),
-            LoginData(username="", password="password", description="description", expected=False),
-            LoginData(username="angular", password="", description="description", expected=False),
-            LoginData(username="", password="", description="", expected=False),
-        ]
-    
-    test_ids = [
-        "valid_fields",
-        "invalid_username",
-        "invalid_password",
-        "empty_description",
-        "empty_username",
-        "empty_password",
-        "empty_all_fields",
-        # можно добавить еще
-        # "only_username", 
-        # "only_password",
-        # "only_description",
-        # "uppercase_username",
-        # "fields_with_spaces"
-    ]
-
-
     @allure.story("Проверка авторизации с разными параметрами")
     @allure.severity(allure.severity_level.BLOCKER)
     @pytest.mark.parametrize(
-        "data", test_data, ids=test_ids)
+        "data", login_test_data, ids=login_test_ids)
     def test_login(self, driver, data):
         """Тестирование входа в учётную запись с разными параметрами"""
         login_page = LoginPage(driver)
