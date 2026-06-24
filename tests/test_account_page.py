@@ -4,6 +4,7 @@ from pages.banking.account.account_page import AccountPage
 from pages.banking.bank_manager.bank_manager_login import BankManagerLoginPage
 from pages.banking.banking_app.banking_app_page import BankingAppPage
 
+
 @allure.epic("Banking Application")
 @allure.feature("Account")
 class TestAccountPage:

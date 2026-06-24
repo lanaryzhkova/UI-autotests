@@ -5,6 +5,7 @@ from data.login_data import login_test_data, login_test_ids
 from pages.auth.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
 
+
 @allure.epic("Authentication (failure)")
 @allure.feature("Login Page")
 class TestLoginPageFailure:

@@ -1,6 +1,6 @@
-import allure
 import random
 
+import allure
 from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
