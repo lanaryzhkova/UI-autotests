@@ -1,19 +1,28 @@
+import base64
+
+import allure
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from allure_commons.types import AttachmentType
 
 pytest_plugins = ["fixtures.customer_state_fixtures"]
 
 
 @pytest.fixture
-def driver():
-    options = Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+def chrome_options(chrome_options):
+    chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
-    driver = webdriver.Chrome(options=options)
-    yield driver
-    driver.quit()
+    return chrome_options
+
+@pytest.fixture
+def driver(selenium):
+    return selenium
+
+def pytest_selenium_capture_debug(item, report, extra):
+    for log_type in extra:
+        if log_type["name"] == "Screenshot":
+            content = base64.b64decode(log_type["content"].encode("utf-8"))
+            allure.attach(content, name="Screenshot on failure", attachment_type=AttachmentType.PNG)
