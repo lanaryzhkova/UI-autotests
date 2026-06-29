@@ -5,3 +5,4 @@ __pycache__/
 .vscode/
 *.code-workspace
 allure*/
+cookies.json
