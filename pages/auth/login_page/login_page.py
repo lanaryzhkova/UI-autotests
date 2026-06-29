@@ -70,7 +70,7 @@ class LoginPage(BasePage):
 
         return True
 
-    @allure.step("Проверить подсветку поля и отображение ошибки у Username")
+    @allure.step("Проверить отображение ошибки у Username (пустое поле)")
     def assert_empty_username_error(self):
         """Проверка отображения ошибки, если поле Username не заполнено"""
         username = self.find_element(self.USERNAME_INPUT)

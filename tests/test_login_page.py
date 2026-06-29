@@ -81,7 +81,7 @@ class TestLoginPage:
         assert not login_page.is_enabled_login_button()
 
     @allure.story("Проверка наличия скролла после уменьшения размера страницы")
-    @allure.severity(allure.severity_level.NORMAL)
+    @allure.severity(allure.severity_level.MINOR)
     def test_page_has_scroll(self, driver):
         """Тестирование наличия скролла после уменьшения размера страницы"""
         login_page = LoginPage(driver)
