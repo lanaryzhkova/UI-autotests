@@ -6,6 +6,7 @@ from pages.base_page import BasePage
 
 class LoginResultPage(BasePage):
     """Страница после успешного логина"""
+
     URL = "https://www.way2automation.com/angularjs-protractor/registeration/#/"
 
     TEXT_ELEMENT = (By.XPATH, '//*[contains(text(), "You\'re logged in!!")]')

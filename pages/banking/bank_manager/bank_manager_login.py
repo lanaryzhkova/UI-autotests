@@ -9,12 +9,17 @@ from .bank_manager_locators import BankManagerPageLocators
 
 class BankManagerLoginPage(BasePage):
     """Страница Bank Manager Login"""
+
     URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager"
-    
+
     OPEN_ACCOUNT_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/openAccount"
     SAMPLE_FORM_URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html"
-    CUSTOMERS_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/list"
-    ADD_CUSTOMER_URL = "https://www.way2automation.com/angularjs-protractor/banking/#/manager/addCust"
+    CUSTOMERS_URL = (
+        "https://www.way2automation.com/angularjs-protractor/banking/#/manager/list"
+    )
+    ADD_CUSTOMER_URL = (
+        "https://www.way2automation.com/angularjs-protractor/banking/#/manager/addCust"
+    )
 
     @allure.step("Загрузить страницу Bank Manager Login")
     def load(self):
@@ -87,7 +92,7 @@ class BankManagerLoginPage(BasePage):
         Args:
             first_name: Имя
             last_name: Фамилия
-        
+
         Returns:
             WebElement, если кастомер найден, иначе False
         """

@@ -10,6 +10,7 @@ from .banking_app_locators import BankingAppPageLocators
 
 class BankingAppPage(BasePage):
     """Страница BankingApp"""
+
     URL = "https://www.way2automation.com/angularjs-protractor/banking/#/login"
 
     @allure.step("Загрузить страницу BankingApp")

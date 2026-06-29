@@ -9,6 +9,7 @@ from .sample_form_locators import SampleFormLocators
 
 class SampleFormPage(BasePage):
     """Страница Sample Form"""
+
     URL = "https://www.way2automation.com/angularjs-protractor/banking/registrationform.html"
 
     @allure.step("Загрузить страницу Sample Form")

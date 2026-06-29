@@ -7,6 +7,7 @@ from pages.base_page import BasePage
 
 class CustomerPage(BasePage):
     """Страница кастомера"""
+
     URL = "https://www.way2automation.com/angularjs-protractor/banking/#/customer"
 
     CUSTOMER_SELECT = (By.ID, "userSelect")
@@ -37,7 +38,7 @@ class CustomerPage(BasePage):
         Проверить отображение приветствия
         Args:
             customer_name: Имя кастомера
-        
+
         Returns:
             Текст приветствия"""
         welcome_text = self.find_element(self.WELCOME_TEXT).text
