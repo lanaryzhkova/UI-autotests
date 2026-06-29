@@ -1,7 +1,7 @@
 import allure
 
 from data.data import not_valid_user, valid_user
-from pages.auth.login_page import LoginPage
+from pages.auth.login_page.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
 
 
@@ -69,3 +69,24 @@ class TestLoginPage:
         login_result_page.logout()
 
         login_page.assert_is_login_elements_visible()
+
+    @allure.story("Проверка авторизации с невалидными данными (пустое поле username)")
+    @allure.severity(allure.severity_level.CRITICAL)
+    def test_login_with_empty_username(self, driver):
+        """Тестирование входа в систему без username"""
+        login_page = LoginPage(driver)
+        login_page.load()
+
+        login_page.assert_empty_username_error()
+        assert not login_page.is_enabled_login_button()
+
+    @allure.story("Проверка наличия скролла после уменьшения размера страницы")
+    @allure.severity(allure.severity_level.NORMAL)
+    def test_page_has_scroll(self, driver):
+        """Тестирование наличия скролла после уменьшения размера страницы"""
+        login_page = LoginPage(driver)
+        login_page.load()
+
+        driver.set_window_size(800, 350)
+
+        assert login_page.is_scroll_on_page(), "На странице нет скролла"

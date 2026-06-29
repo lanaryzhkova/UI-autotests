@@ -1,3 +1,5 @@
+import allure
+
 from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.alert import Alert
@@ -96,6 +98,7 @@ class BasePage:
             return False
 
     def accept_alert(self) -> bool:
+        """Метод подтверждения алерта"""
         try:
             self.wait.wait_for_alert()
             alert = Alert(self.driver)
@@ -115,3 +118,23 @@ class BasePage:
         Returns:
             текущий URL"""
         return self.driver.current_url
+
+    @allure.step("Убрать фокус с элемента")
+    def remove_focus(self, element: WebElement):
+        """Метод снятия фокуса с элемента"""
+        self.driver.execute_script("arguments[0].blur();", element)
+
+    @allure.step("Поставить фокус на элемент")
+    def set_focus(self, element: WebElement):
+        """Метод для фокусирования на элементе"""
+        self.driver.execute_script("arguments[0].focus();", element)
+
+    @allure.step("Определить наличие скролла на странице")
+    def is_scroll_on_page(self):
+        """Метод для определения наличия скролла на странице"""
+        has_scroll = self.driver.execute_script("""
+            return document.documentElement.scrollHeight >
+                   document.documentElement.clientHeight
+        """)
+
+        return has_scroll
