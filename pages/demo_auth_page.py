@@ -1,4 +1,5 @@
 import allure
+import time
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -6,6 +7,7 @@ from pages.base_page import BasePage
 
 class DemoAuthPage(BasePage):
     """Страница с демо-логином с использованием cookie"""
+
     LOGIN_URL = "https://practice.expandtesting.com/login"
     AFTER_LOGIN_URL = "https://practice.expandtesting.com/secure"
 

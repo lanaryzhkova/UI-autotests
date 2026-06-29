@@ -3,6 +3,7 @@ from pathlib import Path
 
 COOKIES_PATH = Path("data/cookies.json")
 
+
 def cookies_exist() -> bool:
     """Метод проверки наличия файла с cookie
     Returns:
@@ -10,10 +11,12 @@ def cookies_exist() -> bool:
     """
     return COOKIES_PATH.exists()
 
+
 def save_cookies(driver):
     """Сохранение cookie в файл"""
     with open(COOKIES_PATH, "w") as file:
         json.dump(driver.get_cookies(), file)
+
 
 def load_cookies(driver):
     """Загрузка cookie в браузер"""
