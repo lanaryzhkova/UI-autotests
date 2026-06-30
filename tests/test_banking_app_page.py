@@ -12,7 +12,7 @@ from pages.banking.sample_form.sample_form_page import SampleFormPage
 @allure.epic("Banking Application")
 class TestBankingAppPage:
     """Тесты для страницы BankingApp"""
-    
+
     @allure.feature("Sample Form")
     @allure.story("Успешная регистрация")
     @allure.severity(allure.severity_level.NORMAL)
@@ -78,10 +78,9 @@ class TestBankingAppPage:
         customer_page.login_customer(created_customer)
         banking_manager_login_page.wait.wait_for_url(AccountPage.URL)
 
-        assert (
-            banking_manager_login_page.get_current_url()
-            == AccountPage.URL
-        ), "Переход на страницу аккаунта не произведен"
+        assert banking_manager_login_page.get_current_url() == AccountPage.URL, (
+            "Переход на страницу аккаунта не произведен"
+        )
         assert "Welcome " + created_customer in customer_page.check_account_welcome(
             created_customer
         )

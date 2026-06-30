@@ -59,9 +59,9 @@ def customer_is_logged_in(driver, customer_with_account) -> str:
     customer_page.login_customer(customer_with_account)
     banking_manager_login_page.wait.wait_for_url(AccountPage.URL)
 
-    assert (
-        banking_manager_login_page.get_current_url() == AccountPage.URL
-    ), "Переход на страницу аккаунта не произведен"
+    assert banking_manager_login_page.get_current_url() == AccountPage.URL, (
+        "Переход на страницу аккаунта не произведен"
+    )
 
     return customer_with_account
 

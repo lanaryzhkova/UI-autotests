@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from data.login_data import login_test_data, login_test_ids
-from pages.auth.login_page import LoginPage
+from pages.auth.login_page.login_page import LoginPage
 from pages.auth.login_result_page import LoginResultPage
 
 
@@ -13,8 +13,7 @@ class TestLoginPage:
 
     @allure.story("Проверка авторизации с разными параметрами")
     @allure.severity(allure.severity_level.BLOCKER)
-    @pytest.mark.parametrize(
-        "data", login_test_data, ids=login_test_ids)
+    @pytest.mark.parametrize("data", login_test_data, ids=login_test_ids)
     def test_login(self, driver, data):
         """Тестирование входа в учётную запись с разными параметрами"""
         login_page = LoginPage(driver)

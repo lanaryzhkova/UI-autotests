@@ -5,8 +5,9 @@ from pages.base_page import BasePage
 
 class LifetimeMembershipClubPage(BasePage):
     """Страница Lifetime Membership Club"""
+
     URL = "https://www.way2automation.com/lifetime-membership-club/"
-    
+
     HEADER_TEXT = (By.TAG_NAME, "h1")
 
     def load(self):
