@@ -3,6 +3,7 @@ testpaths = ["tests"]
 addopts = [
     "--alluredir", "allure-results",
     "--clean-alluredir",
-    "--driver", "Chrome"
+    "--driver", "Remote",
+    "--capability", "browserName", "chrome"
 ]
 selenium_capture_debug = "failure"
