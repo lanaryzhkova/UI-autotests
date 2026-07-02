@@ -138,3 +138,14 @@ class BasePage:
         """)
 
         return has_scroll
+    
+    def drag_and_drop(self, source_element: WebElement, target_element: WebElement) -> "BasePage":
+        """Метод для перетаскивания элемента"""
+        ActionChains(self.driver).drag_and_drop(source_element, target_element).perform()
+        return self
+    
+    @allure.step("Переключение на iframe")
+    def switch_to_frame(self, element:WebElement) -> "BasePage":
+        """Метод для переключения на iframe"""
+        self.driver.switch_to.frame(element)
+        return self
