@@ -6,6 +6,7 @@ from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.remote.webelement import WebElement
 
 from utils.wait_helper import WaitHelper
+from utils.utils import str_to_base64
 
 
 class BasePage:
@@ -170,3 +171,18 @@ class BasePage:
     def switch_to_alert(self) -> Alert:
         """Метод для переключения на алерт"""
         return Alert(self.driver)
+    
+    @allure.step("Выполнить базовую авторизацию username: {username}, password: {password}")
+    def basic_auth(self, username: str, password: str) -> "BasePage":
+        """Метод для выполнения базовой авторизации"""
+        data = f"{username}:{password}"
+        self.driver.execute_cdp_cmd("Network.enable", {})
+        self.driver.execute_cdp_cmd(
+            "Network.setExtraHTTPHeaders",
+            {
+                "headers": {
+                    "Authorization": f"Basic {str_to_base64(data)}"
+                }
+            }
+        )
+        return self
