@@ -144,8 +144,18 @@ class BasePage:
         ActionChains(self.driver).drag_and_drop(source_element, target_element).perform()
         return self
     
-    @allure.step("Переключение на iframe")
     def switch_to_frame(self, element:WebElement) -> "BasePage":
         """Метод для переключения на iframe"""
         self.driver.switch_to.frame(element)
         return self
+    
+    @allure.step("Переключение на новую открытую вкладку")
+    def switch_to_new_tab(self) -> "BasePage":
+        """Метод для переключения на новую вкладку"""
+        all_handles = self.driver.window_handles
+        self.driver.switch_to.window(all_handles[-1])
+        return self
+    
+    def count_handles(self) -> int:
+        """Метод для подсчета количества открытых вкладок"""
+        return len(self.driver.window_handles)
