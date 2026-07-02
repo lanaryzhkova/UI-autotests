@@ -97,6 +97,7 @@ class BasePage:
         except TimeoutException:
             return False
 
+    @allure.step("Подтвердить алерт")
     def accept_alert(self) -> bool:
         """Метод подтверждения алерта"""
         try:
@@ -106,6 +107,12 @@ class BasePage:
             return True
         except TimeoutException:
             return False
+
+    @allure.step("Ввод текста в алерт")
+    def input_text_in_alert(self, text: str):
+        """Вводит текст в алерт"""
+        alert = self.switch_to_alert()
+        alert.send_keys(text)
 
     def get_attribute_of_element(
         self, element: WebElement, attribute: str
@@ -159,3 +166,7 @@ class BasePage:
     def count_handles(self) -> int:
         """Метод для подсчета количества открытых вкладок"""
         return len(self.driver.window_handles)
+    
+    def switch_to_alert(self) -> Alert:
+        """Метод для переключения на алерт"""
+        return Alert(self.driver)
