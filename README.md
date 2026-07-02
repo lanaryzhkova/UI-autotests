@@ -13,29 +13,39 @@ pip install -r requirements.txt
 
 ## Запуск
 
-### Запуск Selenium Grid
+### Запуск локально
 
-Запустить Hub:
 
 ```bash
-./grid_scripts/start_hub.sh
+pytest --browser chrome
 ```
+--browser — chrome / firefox / edge / ie
 
-Запустить Node:
+### Запуск через Selenium Grid
+
 ```bash
-./grid_scripts/start_node.sh
+./scripts/start_hub.sh
 ```
 
-Проверить состояние Grid можно по адресу:
+```bash
+./scripts/start_node.sh
+```
+
+```bash
+pytest --remote --browser chrome  
+```
+--browser — chrome / firefox / edge / ie
+--hub=http://localhost:4444 (по умолчанию)
+
+**Проверить состояние Grid можно по адресу:**
 http://localhost:4444/ui
 
 
-Запускать тесты можно с указанием количества потоков:
+**Запускать тесты можно с указанием количества потоков:**
 ```bash
-./grid_scripts/run_tests.sh 4
+pytest -n 4 --browser chrome
 ```
-где 4 - количество потоков, 
-если количество потоков не указано, то по умолчанию будет запуск в 2 потока
+где 4 - количество потоков
 
 После выполнения тестов сгенерировать отчет:
 ```bash

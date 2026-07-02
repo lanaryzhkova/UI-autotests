@@ -3,26 +3,22 @@ import base64
 import allure
 import pytest
 from allure_commons.types import AttachmentType
+from drivers.driver_factory import DriverFactory
 
 pytest_plugins = ["fixtures.customer_state_fixtures", "fixtures.auth_cookies_fixture"]
 
 
 @pytest.fixture
-def chrome_options(chrome_options):
-    chrome_options.add_argument("--headless=new")
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-notifications")
+def driver(request):
+    driver = DriverFactory.create_driver(
+        browser=request.config.getoption("--browser"),
+        remote=request.config.getoption("--remote"),
+        hub_url=request.config.getoption("--hub"),
+    )
 
-    return chrome_options
+    yield driver
 
-
-@pytest.fixture
-def driver(selenium):
-    return selenium
-
+    driver.quit()
 
 def pytest_selenium_capture_debug(item, report, extra):
     for log_type in extra:
@@ -33,3 +29,24 @@ def pytest_selenium_capture_debug(item, report, extra):
                 name="Screenshot on failure",
                 attachment_type=AttachmentType.PNG,
             )
+
+def pytest_addoption(parser):
+    """Добавление опций командной строки для выбора браузера и режима запуска"""
+    parser.addoption(
+        "--browser",
+        action="store",
+        default="chrome",
+        help="Браузеры: chrome, firefox, edge, ie",
+    )
+
+    parser.addoption(
+        "--remote",
+        action="store_true",
+        help="Запуск через Selenium Grid",
+    )
+
+    parser.addoption(
+        "--hub",
+        action="store",
+        default="http://localhost:4444",
+    )
